@@ -19,6 +19,8 @@ private:
     void printPlayer();
     void printInstructions();
     void printMonster();
+    void printFight(std::string msg);
+    void printFight(std::string msg, std::string msg2);
 };
 
 

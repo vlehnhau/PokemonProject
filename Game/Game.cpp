@@ -13,7 +13,7 @@ Game::Game() {
     }
 
     int i = 0;
-    while(std::getline(input, line)) {
+    while (std::getline(input, line)) {
         for (int j = 0; j < line.size(); ++j) {
             field[i][j] = line[j];
         }
@@ -40,42 +40,42 @@ const std::vector<std::vector<char>> &Game::getField() const {
 
 void Game::movePlayer(std::string moveTo) {
     if (moveTo == "up") {
-        if (checkFree(this->p->getLocationX(), this->p->getLocationY()-1)) {
-            this->p->setLocationY(this->p->getLocationY()-1);
+        if (checkFree(this->p->getLocationX(), this->p->getLocationY() - 1)) {
+            this->p->setLocationY(this->p->getLocationY() - 1);
             healingStartet = false;
         }
     } else if (moveTo == "down") {
-        if (checkFree(this->p->getLocationX(), this->p->getLocationY()+1)) {
-            this->p->setLocationY(this->p->getLocationY()+1);
+        if (checkFree(this->p->getLocationX(), this->p->getLocationY() + 1)) {
+            this->p->setLocationY(this->p->getLocationY() + 1);
             healingStartet = false;
         }
     } else if (moveTo == "left") {
-        if (checkFree(this->p->getLocationX()-1, this->p->getLocationY())) {
-            this->p->setLocationX(this->p->getLocationX()-1);
+        if (checkFree(this->p->getLocationX() - 1, this->p->getLocationY())) {
+            this->p->setLocationX(this->p->getLocationX() - 1);
             healingStartet = false;
         }
     } else if (moveTo == "right") {
-        if (checkFree(this->p->getLocationX()+1, this->p->getLocationY())) {
-            this->p->setLocationX(this->p->getLocationX()+1);
+        if (checkFree(this->p->getLocationX() + 1, this->p->getLocationY())) {
+            this->p->setLocationX(this->p->getLocationX() + 1);
             healingStartet = false;
         }
     }
 
-    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'T'){
+    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'T') {
         this->fight();
     }
 
-    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'E'){
+    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'E') {
         this->win = true;
     }
 
-    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'P'){
+    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'P') {
         this->heal();
     }
 
-    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'G'){
-        int pickedChoice = (int)(rand() % 5) + 1;
-        if(pickedChoice == 5){
+    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'G') {
+        int pickedChoice = (int) (rand() % 5) + 1;
+        if (pickedChoice == 5) {
             this->monsterFound = true;
             this->newMonster = new Monster("SuperTaube", 3, 10);
         }
@@ -83,8 +83,8 @@ void Game::movePlayer(std::string moveTo) {
 }
 
 bool Game::checkFree(int x, int y) {
-    if (0 <= x && 79 >= x && 0 <= y && 29 >= y){
-        if (this->field[y][x] == '#'){
+    if (0 <= x && 79 >= x && 0 <= y && 29 >= y) {
+        if (this->field[y][x] == '#') {
             return false;
         } else {
             return true;
@@ -98,16 +98,27 @@ Player *Game::getP() const {
 }
 
 void Game::fight() {
-    this->p->getM()->setLpNow(this->p->getM()->getLpNow()-5);
-
+//    this->p->getM()->setLpNow(this->p->getM()->getLpNow()-5);
+    int rdmNumber = (int) (rand() % 3) + 1;
+    rdmNumber = 2;//TODO: back to rdm
+    if (rdmNumber == 1) {
+        this->enemyMonster = new Monster("Donnerratte", 5, 16);
+    } else if (rdmNumber == 2) {
+        this->enemyMonster = new Monster("Baumbaum", 5, 7);
+    } else if (rdmNumber == 3) {
+        this->enemyMonster = new Monster("Wasserkroete", 3, 10);
+    }
     this->field[this->getP()->getLocationY()][this->getP()->getLocationX()] = ' ';
+    this->fighting = 1;
+}
 
+void Game::deadOrLose() {
     if (this->p->getM()->getLpNow() <= 0) {
         this->p->getAllMonsters()->erase(this->p->getAllMonsters()->begin() + this->getP()->getIndexOfMonster());
-        if(this->p->getAllMonsters()->size() == 0){
+        if (this->p->getAllMonsters()->size() == 0) {
             this->lose = true;
         } else {
-            this->needNewMonster = true;
+            this->fighting = 3;
         }
     }
 }
@@ -127,15 +138,16 @@ void Game::heal() {
 }
 
 void Game::newMaxHealth() {
-        if(healingStartet){
-            if (int(std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - healingStart).count()) > 5000000){
-                p->getM()->setLp(p->getM()->getLp() + 5);
-                this->field[this->p->getLocationY()][this->p->getLocationX()] = ' ';
-            }
-        } else {
-            healingStartet = true;
-            healingStart = std::chrono::system_clock::now();
+    if (healingStartet) {
+        if (int(std::chrono::duration_cast<std::chrono::microseconds>(
+                std::chrono::system_clock::now() - healingStart).count()) > 5000000) {
+            p->getM()->setLp(p->getM()->getLp() + 5);
+            this->field[this->p->getLocationY()][this->p->getLocationX()] = ' ';
         }
+    } else {
+        healingStartet = true;
+        healingStart = std::chrono::system_clock::now();
+    }
 }
 
 bool Game::isMonsterFound() const {
@@ -155,19 +167,74 @@ void Game::addMonster() {
     this->p->setM(&(*this->p->getAllMonsters())[this->p->getIndexOfMonster()]);
 }
 
-bool Game::isNeedNewMonster() const {
-    return needNewMonster;
-}
-
-void Game::setNeedNewMonster(bool needNewMonster) {
-    Game::needNewMonster = needNewMonster;
-}
-
 void Game::selectNewMonster(int index) {
-    if(this->p->getAllMonsters()->size() > index){
-        this->needNewMonster = false;
+    if (this->p->getAllMonsters()->size() > index) {
+        if(this->fighting != 0){
+            if(enemyMonster->getLpNow() == 0){
+                this->fighting = 4;
+            } else {
+                this->fighting = 2;
+            }
+        }
         this->p->setIndexOfMonster(index);
         this->p->setM(&(*this->p->getAllMonsters())[index]);
+    }
+}
+
+int Game::getFighting() const {
+    return fighting;
+}
+
+void Game::setFighting(int fighting) {
+    Game::fighting = fighting;
+}
+
+Monster *Game::getEnemyMonster() const {
+    return enemyMonster;
+}
+
+void Game::setEnemyMonster(Monster *enemyMonster) {
+    Game::enemyMonster = enemyMonster;
+}
+
+void Game::attack() {
+    enemyMonster->setLpNow(enemyMonster->getLpNow() - p->getM()->getAp());
+    p->getM()->setLpNow(p->getM()->getLpNow() - enemyMonster->getAp());
+    if (enemyMonster->getLpNow() <= 0) {
+        enemyMonster->setLpNow(0);
+        p->getM()->setAp(p->getM()->getAp() + 1);
+        this->fighting = 4;
+    }
+    deadOrLose();
+}
+
+bool Game::isFightHealingUsed() const {
+    return fightHealingUsed;
+}
+
+void Game::setFightHealingUsed(bool fightHealingUsed) {
+    Game::fightHealingUsed = fightHealingUsed;
+}
+
+void Game::fightHealing() {
+    this->fightHealingUsed = true;
+    this->p->getM()->setLpNow(this->p->getM()->getLpNow() + (this->p->getM()->getLp()/2));
+    if(this->p->getM()->getLpNow() > this->p->getM()->getLp()) {
+        this->p->getM()->setLpNow(this->p->getM()->getLp());
+    }
+    p->getM()->setLpNow(p->getM()->getLpNow() - enemyMonster->getAp());
+    deadOrLose();
+}
+
+void Game::run() {
+    int rdmNumber = (int) (rand() % 10) + 1;
+    if(rdmNumber < 8) {
+        this->setFighting(0);
+        this->setFightHealingUsed(false);
+    } else {
+        p->getM()->setLpNow(p->getM()->getLpNow() - enemyMonster->getAp());
+        deadOrLose();
+        this->setFighting(2);
     }
 }
 
