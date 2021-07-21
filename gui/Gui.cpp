@@ -16,6 +16,10 @@ void Gui::onRefresh() {
         this->game->movePlayer("right");
     }
 
+    if (this->game->getField()[this->game->getP()->getLocationY()][this->game->getP()->getLocationX()] == 'Y') {
+        this->game->newMaxHealth();
+    }
+
     if(this->game->isLose()){
         this->clear();
         this->writeString(10,10, "Sie haben verloren!");

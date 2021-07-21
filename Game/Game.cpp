@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game() {
-    std::fstream input("../map_basic.txt");
+    std::fstream input("../map_advanced.txt");
     std::string line;
 
     for (int i = 0; i < 30; ++i) {
@@ -23,7 +23,7 @@ Game::Game() {
     int y;
     int x;
     for (int j = 0; j < field.size(); ++j) {
-        for (int k = 0; k < field[i].size(); ++k) {
+        for (int k = 0; k < field[j].size(); ++k) {
             if (field[j][k] == '0') {
                 y = j;
                 x = k;
@@ -42,18 +42,22 @@ void Game::movePlayer(std::string moveTo) {
     if (moveTo == "up") {
         if (checkFree(this->p->getLocationX(), this->p->getLocationY()-1)) {
             this->p->setLocationY(this->p->getLocationY()-1);
+            healingStartet = false;
         }
     } else if (moveTo == "down") {
         if (checkFree(this->p->getLocationX(), this->p->getLocationY()+1)) {
             this->p->setLocationY(this->p->getLocationY()+1);
+            healingStartet = false;
         }
     } else if (moveTo == "left") {
         if (checkFree(this->p->getLocationX()-1, this->p->getLocationY())) {
             this->p->setLocationX(this->p->getLocationX()-1);
+            healingStartet = false;
         }
     } else if (moveTo == "right") {
         if (checkFree(this->p->getLocationX()+1, this->p->getLocationY())) {
             this->p->setLocationX(this->p->getLocationX()+1);
+            healingStartet = false;
         }
     }
 
@@ -63,6 +67,10 @@ void Game::movePlayer(std::string moveTo) {
 
     if (field[this->p->getLocationY()][this->p->getLocationX()] == 'E'){
         this->win = true;
+    }
+
+    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'P'){
+        this->heal();
     }
 }
 
@@ -98,4 +106,21 @@ bool Game::isLose() const {
 
 bool Game::isWin() const {
     return win;
+}
+
+void Game::heal() {
+    this->p->getM()->setLpNow(this->p->getM()->getLp());
+}
+
+void Game::newMaxHealth() {
+        if(healingStartet){
+            if (int(std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - healingStart).count()) > 5000000){
+                std::cout << "it worked" << std::endl;
+                p->getM()->setLp(p->getM()->getLp() + 5);
+                this->field[this->p->getLocationY()][this->p->getLocationX()] = ' ';
+            }
+        } else {
+            healingStartet = true;
+            healingStart = std::chrono::system_clock::now();
+        }
 }

@@ -57,7 +57,7 @@ class ConsoleWindow : public QMainWindow
         void paintEvent(QPaintEvent *event) override;
 
      public:
-        ConsoleWidget(std::function<void()> onKeyPressFunc, QWidget *parent = nullptr, unsigned width = 64, unsigned height = 48, unsigned charSize = 12);
+        ConsoleWidget(std::function<void()> onKeyPressFunc, QWidget *parent = nullptr, unsigned width = 80, unsigned height = 48, unsigned charSize = 12);
         void setCharSize(unsigned charSize);
         inline void setCharacter(int x, int y, QString character);
         inline void setCharacter(int x, int y, char  character);
