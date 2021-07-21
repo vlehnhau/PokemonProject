@@ -1,4 +1,15 @@
+#include <random>
 #include "Game.h"
+
+int rdmInt(int min, int max) {
+    static std::random_device rdmDevice;
+    static std::mt19937 randomizer(rdmDevice());
+
+    std::uniform_int_distribution<int> dist(min, max);
+
+    int rdmInt = dist(randomizer);
+    return rdmInt;
+}
 
 Game::Game() {
     std::fstream input("../map_advanced.txt");
@@ -74,8 +85,8 @@ void Game::movePlayer(std::string moveTo) {
     }
 
     if (field[this->p->getLocationY()][this->p->getLocationX()] == 'G') {
-        int pickedChoice = (int) (rand() % 5) + 1;
-        if (pickedChoice == 5) {
+        int rdmNumber = rdmInt(1,5);
+        if (rdmNumber == 5) {
             this->monsterFound = true;
             this->newMonster = new Monster("SuperTaube", 3, 10);
         }
@@ -99,8 +110,7 @@ Player *Game::getP() const {
 
 void Game::fight() {
 //    this->p->getM()->setLpNow(this->p->getM()->getLpNow()-5);
-    int rdmNumber = (int) (rand() % 3) + 1;
-    rdmNumber = 2;//TODO: back to rdm
+    int rdmNumber = rdmInt(1, 3);
     if (rdmNumber == 1) {
         this->enemyMonster = new Monster("Donnerratte", 5, 16);
     } else if (rdmNumber == 2) {
@@ -227,7 +237,7 @@ void Game::fightHealing() {
 }
 
 void Game::run() {
-    int rdmNumber = (int) (rand() % 10) + 1;
+    int rdmNumber = rdmInt(1,10);
     if(rdmNumber < 8) {
         this->setFighting(0);
         this->setFightHealingUsed(false);
@@ -237,4 +247,3 @@ void Game::run() {
         this->setFighting(2);
     }
 }
-

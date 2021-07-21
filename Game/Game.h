@@ -8,6 +8,8 @@
 #include <chrono>
 #include <thread>
 
+int rdmInt(int min, int max);
+
 class Game {
 private:
     std::vector<std::vector<char>> field;
