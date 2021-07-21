@@ -3,6 +3,7 @@
 
 #include "../copyme/console-window-master/ConsoleWindow.h"
 #include "../Game/Game.h"
+#include <iostream>
 
 class Gui: public ConsoleWindow{
 protected:
@@ -15,6 +16,9 @@ private:
     Game *game;
 
     void printBoard();
+    void printPlayer();
+    void printInstructions();
+    void printMonster();
 };
 
 

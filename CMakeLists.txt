@@ -17,6 +17,8 @@ add_executable(klausur
         Game/Game.h
         Game/Player.cpp
         Game/Player.h
+        Game/Monster.cpp
+        Game/Monster.h
         main.cpp
 #        copyme/console-window-master/main.cpp
         )
