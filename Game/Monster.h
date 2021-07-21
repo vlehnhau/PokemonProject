@@ -23,7 +23,6 @@ public:
     int getAp() const;
     int getLp() const;
     int getLpNow() const;
-
     void setName(const std::string &name);
     void setAp(int ap);
     void setLp(int lp);

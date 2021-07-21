@@ -40,4 +40,5 @@ Monster::Monster(std::string name, int ap, int lp) {
     this->name = name;
     this->ap = ap;
     this->lp = lp;
+    this->lp_now = lp;
 }

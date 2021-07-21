@@ -1,6 +1,7 @@
 #ifndef KLAUSUR_PLAYER_H
 #define KLAUSUR_PLAYER_H
 
+#include <vector>
 #include "Monster.h"
 
 class Player {
@@ -14,12 +15,19 @@ public:
     void setLocationX(int locationX);
     void setLocationY(int locationY);
     void setM(Monster *m);
+    std::vector<Monster> *getAllMonsters();
+    void setAllMonsters(std::vector<Monster> *allMonsters);
+    int getIndexOfMonster() const;
+    void setIndexOfMonster(int indexOfMonster);
 
 private:
     int locationX;
     int locationY;
 
-    Monster * m;
+    int indexOfMonster = 0;
+    std::vector<Monster> monsters;
+    Monster *m;
+    //std::vector<Monster> allMonsters;
 };
 
 

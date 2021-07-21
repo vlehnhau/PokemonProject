@@ -15,6 +15,10 @@ private:
     bool lose = false;
     bool win = false;
     bool healingStartet = false;
+    bool monsterFound = false;
+    bool needNewMonster = false;
+
+    Monster *newMonster;
 
     std::chrono::system_clock::time_point healingStart;
 
@@ -26,12 +30,19 @@ public:
     void movePlayer(std::string moveTo);
     bool checkFree(int x, int y);
     void newMaxHealth();
+    void addMonster();
+    void selectNewMonster(int index);
 
     //Getter/Setter
     const std::vector<std::vector<char>> &getField() const;
     Player *getP() const;
     bool isLose() const;
     bool isWin() const;
+    bool isMonsterFound() const;
+    void setMonsterFound(bool monsterFound);
+    const Monster &getNewMonster() const;
+    bool isNeedNewMonster() const;
+    void setNeedNewMonster(bool needNewMonster);
 };
 
 #endif //KLAUSUR_GAME_H
