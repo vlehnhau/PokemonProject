@@ -1,7 +1,7 @@
 ###################
 # Spezifikationen #
 ###################
-- Geschrieben mit XCODE/Clang/Qt5.12.11
+- Geschrieben mit XCODE / Clang (AppleClang 12.0.5.12050022) / Qt5.12.11
 - Prozessor Apple M1 Arm64 -> mit Rosetta
 
 #############
