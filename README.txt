@@ -7,11 +7,21 @@
 #############
 # Steuerung #
 #############
+
+#Normal
 Steuerung des Characters: Pfeiltasten
 Monster wechseln: Zahlen für einstprechendes Monster
 
-Monster wechseln im Kapf: p
+#Kampf
+Monster wechseln: p
 Dialog weiter: a
+Angriff: 1
+Heilen: 2
+Flucht: 3
+
+#Monsterfangen
+Fangen: 1
+Flucht: 2
 
 ############
 # Unicodes #
