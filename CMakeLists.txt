@@ -3,7 +3,7 @@ project(klausur)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_AUTOMOC ON)
-include_directories(console-window-master)
+include_directories(.)
 set (CMAKE_PREFIX_PATH "~/Qt5.12.11/5.12.11/clang_64/lib/cmake")
 find_package(Qt5Widgets REQUIRED)
 add_executable(klausur
