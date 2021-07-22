@@ -7,7 +7,6 @@
 #############
 # Steuerung #
 #############
-
 #Normal
 Steuerung des Characters: Pfeiltasten
 Monster wechseln: Zahlen für einstprechendes Monster
@@ -41,6 +40,18 @@ Ausgang: QString("\u27A5")
 - https://luna.informatik.uni-mainz.de/eis21/aufgaben/blatt10/threads-anlage.md
 - http://www.cplusplus.com/forum/general/3082/
 - https://im-coder.com/zeile-fuer-zeile-lesen-in-c-und-c.html
+
+#######################
+# Zusatzinformationen #
+#######################
+-Zum Zeitpunkt der Abgabe läuft das Programm fehlerfrei auf dem oben beschriebenen System
+
+-In meinem Spiel greifen sich die Monster immer gegenseitig an, dass hat zur Folge das auch wenn man das gegnerische Monster
+getötet hat man trd. noch den Schaden bekommt und man verlieren kann obwohl das gegnerische Monster tot ist.
+Dies ist von meiner Seite aus gewollt, da ich es so für sinnvoller halte.
+Um zu zeigen dass ich dies absichtlich gemacht habe beschreibe ich kurz wie ich dies so ändere dass die Monster nach einander
+angreifen. Hier für müsste ich einfach zuerst dem Gegner den Schaden hinzufügen und nur wenn dieser nicht auf 0 gefallen ist auch
+dem Monster des Spielers den Schaden hinzufügen. Dies müsste man in der attack-Methode in dem game-Objekt ändern
 
 ##########
 # Extras #

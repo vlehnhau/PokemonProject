@@ -6,6 +6,7 @@ set(CMAKE_AUTOMOC ON)
 include_directories(.)
 set (CMAKE_PREFIX_PATH "~/Qt5.12.11/5.12.11/clang_64/lib/cmake")
 find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Core REQUIRED)
 add_executable(klausur
 #        console-window-master/ConsoleDemo.cpp
 #        console-window-master/ConsoleDemo.h
