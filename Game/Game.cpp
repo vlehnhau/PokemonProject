@@ -14,7 +14,7 @@ int rdmInt(int min, int max) {
 //konstruktor
 Game::Game() {
     //die einzulesene map
-    std::fstream input("../map_advanced.txt"); // ("../map_basic.txt")
+    std::fstream input("map_advanced.txt"); // ("map_basic.txt")
     std::string line;
 
     for (int i = 0; i < 30; ++i) {
@@ -55,10 +55,12 @@ const std::vector<std::vector<char>> &Game::getField() const {
 }
 
 //Diese Methode bewegt den Spieler und wird aufgerufen wenn die entsprechenden Tasten gedrückt werden
-void Game::movePlayer(const std::string& moveTo) {
+void Game::movePlayer(const std::string &moveTo) {
     if (moveTo == "up") {
-        if (checkFree(this->p->getLocationX(), this->p->getLocationY() - 1)) {    //Hier wird überprüft ob der Spieler das gewünschte Feld betreten kann
-            this->p->setLocationY(this->p->getLocationY() - 1);                //Es wird der neue Standpunkt von dem Spieler gesetzt
+        if (checkFree(this->p->getLocationX(), this->p->getLocationY() -
+                                               1)) {    //Hier wird überprüft ob der Spieler das gewünschte Feld betreten kann
+            this->p->setLocationY(
+                    this->p->getLocationY() - 1);                //Es wird der neue Standpunkt von dem Spieler gesetzt
             healingStartet = false;                                                     //Der Healing fortschrit wird zurück gesetzt sobald der Spieler sich bewegt
         }
     } else if (moveTo == "down") {
@@ -78,23 +80,39 @@ void Game::movePlayer(const std::string& moveTo) {
         }
     }
 
-    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'T') {           //Wenn der Spieler auf einen Gegner trifft, wird die kampfmethode aufgerufen
+    if (field[this->p->getLocationY()][this->p->getLocationX()] ==
+        'T') {           //Wenn der Spieler auf einen Gegner trifft, wird die kampfmethode aufgerufen
         this->fight();
     }
 
-    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'E') {           //Wenn der Spieler ins Ziel geht, wird die win Variable auf ture gesetzt, sodass sich die anzeige ändern kann
+    if (field[this->p->getLocationY()][this->p->getLocationX()] ==
+        'E') {           //Wenn der Spieler ins Ziel geht, wird die win Variable auf ture gesetzt, sodass sich die anzeige ändern kann
         this->win = true;
     }
 
-    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'P') {           //Wenn der Spieler auf ein Heilfeld trifft, wird die heilmethode aufgerufen
+    if (field[this->p->getLocationY()][this->p->getLocationX()] ==
+        'P') {           //Wenn der Spieler auf ein Heilfeld trifft, wird die heilmethode aufgerufen
         this->heal();
     }
 
-    if (field[this->p->getLocationY()][this->p->getLocationX()] == 'G') {           //Wenn der Spieler auf ein Waldfeld trifft
-        int rdmNumber = rdmInt(1,5);                                      //Wird eine Zufallszahl zwischen 1 und 5 ausgewählt (20%)
-        if (rdmNumber == 5) {                                                       //Wenn eine bestimmte getroffen wird(5)
+    if (field[this->p->getLocationY()][this->p->getLocationX()] ==
+        'G') {           //Wenn der Spieler auf ein Waldfeld trifft
+        int rdmNumber = rdmInt(1,
+                               5);                                      //Wird eine Zufallszahl zwischen 1 und 5 ausgewählt (20%)
+        if (rdmNumber == 5) {
+            rdmNumber = rdmInt(1, 5);
             this->monsterFound = true;                                              //Wird die monster fangen Phase eingeleitet
-            this->newMonster = new Monster("SuperTaube", 3, 10);      //und eine neues Monster erzeugt und in der dafür vorgesehenen variable abgespeichert
+            if (rdmNumber == 1) {
+                this->newMonster = new Monster("SuperTaube", 3,10);      //und eine neues Monster erzeugt und in der dafür vorgesehenen variable abgespeichert
+            } else if (rdmNumber == 2) {
+                this->newMonster = new Monster("Fisch", 1,1);
+            } else if (rdmNumber == 3) {
+                this->newMonster = new Monster("OverPower", 50,50);
+            } else if (rdmNumber == 4) {
+                this->newMonster = new Monster("Tanki", 3,50);
+            } else if (rdmNumber == 5) {
+                this->newMonster = new Monster("SuperStark", 10,5);
+            }
         }
     }
 }
@@ -132,8 +150,10 @@ void Game::fight() {
 
 //Hier wird überpfrüft ob der Spieler verloren hat oder ein monster von ihm gestorben ist
 void Game::deadOrLose() {
-    if (this->p->getM()->getLpNow() <= 0) { //Er kann nur verloren haben oder sein monster wechseln müssen wenn sein hauptmonster unter oder genau 0Lp hat
-        this->p->getAllMonsters()->erase(this->p->getAllMonsters()->begin() + this->getP()->getIndexOfMonster()); //Das Tote hauptmonster wird entfernt
+    if (this->p->getM()->getLpNow() <=
+        0) { //Er kann nur verloren haben oder sein monster wechseln müssen wenn sein hauptmonster unter oder genau 0Lp hat
+        this->p->getAllMonsters()->erase(this->p->getAllMonsters()->begin() +
+                                         this->getP()->getIndexOfMonster()); //Das Tote hauptmonster wird entfernt
         if (this->p->getAllMonsters()->size() == 0) { //Wenn kein Monster mehr vorhanden ist -> hat der Spieler verloren
             this->lose = true;
         } else {
@@ -152,7 +172,7 @@ bool Game::isWin() const {
 
 //Hier werden all Monster geheilt
 void Game::heal() {
-    for (auto & i : *this->p->getAllMonsters()) {   //Jedes Monster des Spielers wird durchgegangen und sein Lp auf den maximalwert gesetzt
+    for (auto &i : *this->p->getAllMonsters()) {   //Jedes Monster des Spielers wird durchgegangen und sein Lp auf den maximalwert gesetzt
         i.setLpNow(i.getLp());
     }
 }
@@ -187,20 +207,23 @@ void Game::setMonsterFound(bool monsterFound) {
 //Hier wird ein neues Monster zu den Spielermonstern hinzugefügt
 void Game::addMonster() {
     this->p->getAllMonsters()->push_back(*newMonster); //das Gefundene Monster wird hinzugefügt
-    this->p->setM(&(*this->p->getAllMonsters())[this->p->getIndexOfMonster()]); //Das vorherig aktive monster, wird zum aktiven monster
+    this->p->setM(
+            &(*this->p->getAllMonsters())[this->p->getIndexOfMonster()]); //Das vorherig aktive monster, wird zum aktiven monster
 }
 
 //Hier wird ein neues Monster ausgefählt -> der übergabe werde ist die Stelle im vector an welchem sich dieses befindet
 void Game::selectNewMonster(int index) {
     if (this->p->getAllMonsters()->size() > index) { //der index wird nochmal überprüft
-        if(this->fighting != 0){                     //Es wird überprüft ob man sich gerade im Kampf befindet, um zu schauen ob man die Kampfphase danach wieder ändern müss
-            if(enemyMonster->getLpNow() == 0){
+        if (this->fighting !=
+            0) {                     //Es wird überprüft ob man sich gerade im Kampf befindet, um zu schauen ob man die Kampfphase danach wieder ändern müss
+            if (enemyMonster->getLpNow() == 0) {
                 this->fighting = 4;                  //Das monster ist zwar tot aber der Spieler hat noch ein anderes und danach trd. gewonnen weil der gegner im selben zug gestorben ist
             } else {
                 this->fighting = 2;                  //Der Kampf geht normal weiter
             }
         }
-        this->p->setIndexOfMonster(index);           //Der Index des neuen aktive Monsters wird in der entsprechenden Variable abgespeichert
+        this->p->setIndexOfMonster(
+                index);           //Der Index des neuen aktive Monsters wird in der entsprechenden Variable abgespeichert
         this->p->setM(&(*this->p->getAllMonsters())[index]); //Das entsprechende monster wird zum aktiven monster
     }
 }
@@ -219,10 +242,13 @@ Monster *Game::getEnemyMonster() const {
 
 //Es wird angegriffen
 void Game::attack() {
-    enemyMonster->setLpNow(enemyMonster->getLpNow() - p->getM()->getAp()); //Das leben von dem gegnerischen monster wird runter gesetzt
-    p->getM()->setLpNow(p->getM()->getLpNow() - enemyMonster->getAp()); //Das leben des eigenen Monsterswird entsprechend runter gesetzt
+    enemyMonster->setLpNow(
+            enemyMonster->getLpNow() - p->getM()->getAp()); //Das leben von dem gegnerischen monster wird runter gesetzt
+    p->getM()->setLpNow(p->getM()->getLpNow() -
+                        enemyMonster->getAp()); //Das leben des eigenen Monsterswird entsprechend runter gesetzt
     if (enemyMonster->getLpNow() <= 0) {  //Es wird nachgeschaut ob das gegnerische monster tot ist
-        enemyMonster->setLpNow(0);  //damit die anzeige stimmt müssen die lp auf 0 gesetzt werden da sie sonst evtl. negativ wären
+        enemyMonster->setLpNow(
+                0);  //damit die anzeige stimmt müssen die lp auf 0 gesetzt werden da sie sonst evtl. negativ wären
         p->getM()->setAp(p->getM()->getAp() + 1); //Die Ap des aktiven monsters des Spielers werden um 1 angehoben
         this->fighting = 4; //Die letzte Phase des Kampfes wird eingeleitet
     }
@@ -240,8 +266,9 @@ void Game::setFightHealingUsed(bool fightHealingUsed) {
 //Das heilen eines Monsters im Kampf
 void Game::fightHealing() {
     this->fightHealingUsed = true; //Das healing wurde bnutzt und kann nicht nochmal verwendet werden
-    this->p->getM()->setLpNow(this->p->getM()->getLpNow() + (this->p->getM()->getLp()/2)); //Die Lp werden wieder angehoben
-    if(this->p->getM()->getLpNow() > this->p->getM()->getLp()) {
+    this->p->getM()->setLpNow(
+            this->p->getM()->getLpNow() + (this->p->getM()->getLp() / 2)); //Die Lp werden wieder angehoben
+    if (this->p->getM()->getLpNow() > this->p->getM()->getLp()) {
         this->p->getM()->setLpNow(this->p->getM()->getLp());
     }
     p->getM()->setLpNow(p->getM()->getLpNow() - enemyMonster->getAp()); //Der Gegner kann in diesem Zug trd. angreifen
@@ -250,13 +277,28 @@ void Game::fightHealing() {
 
 //Das fliehen aus einem Kampf
 void Game::run() {
-    int rdmNumber = rdmInt(1,10); //Eine Zufallszahl zwischen 1-10 und die zahl muss kleiner als oder gleich 8 sein (80% warscheinlichkeit)
-    if(rdmNumber <= 8) {
+    int rdmNumber = rdmInt(1,
+                           10); //Eine Zufallszahl zwischen 1-10 und die zahl muss kleiner als oder gleich 8 sein (80% warscheinlichkeit)
+    if (rdmNumber <= 8) {
         this->setFighting(0);   //Die kampfphase ist beendet
         this->setFightHealingUsed(false);
     } else {
-        p->getM()->setLpNow(p->getM()->getLpNow() - enemyMonster->getAp()); //Der Gegner kann in diesem Zug trd. angreifen
+        p->getM()->setLpNow(
+                p->getM()->getLpNow() - enemyMonster->getAp()); //Der Gegner kann in diesem Zug trd. angreifen
         deadOrLose(); //hat der Spieler diese Runde überlebt
         this->setFighting(2); //Es geht weiter
     }
+}
+
+//Diese Methode gibt dem Monster 2 weiter angriffspunkte aber bekommt 5 maxLP abgezogen
+void Game::train() {
+    this->p->getM()->setLp(this->p->getM()->getLp() - 5);
+    this->p->getM()->setAp(this->p->getM()->getAp() + 2);
+
+    if(this->p->getM()->getLp() < this->p->getM()->getLpNow()){
+        this->p->getM()->setLpNow(this->p->getM()->getLp());
+    }
+
+    p->getM()->setLpNow(p->getM()->getLpNow() - enemyMonster->getAp()); //Der Gegner greift an
+    this->deadOrLose();
 }

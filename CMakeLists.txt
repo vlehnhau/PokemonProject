@@ -3,14 +3,14 @@ project(klausur)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_AUTOMOC ON)
-include_directories(copyme/console-window-master)
+include_directories(console-window-master)
 set (CMAKE_PREFIX_PATH "~/Qt5.12.11/5.12.11/clang_64/lib/cmake")
 find_package(Qt5Widgets REQUIRED)
 add_executable(klausur
-#        copyme/console-window-master/ConsoleDemo.cpp
-#        copyme/console-window-master/ConsoleDemo.h
-        copyme/console-window-master/ConsoleWindow.cpp
-        copyme/console-window-master/ConsoleWindow.h
+#        console-window-master/ConsoleDemo.cpp
+#        console-window-master/ConsoleDemo.h
+        console-window-master/ConsoleWindow.cpp
+        console-window-master/ConsoleWindow.h
         gui/Gui.cpp
         gui/Gui.h
         Game/Game.cpp
@@ -20,6 +20,6 @@ add_executable(klausur
         Game/Monster.cpp
         Game/Monster.h
         main.cpp
-#        copyme/console-window-master/main.cpp
+#        console-window-master/main.cpp
         )
 target_link_libraries(klausur Qt5::Widgets)

@@ -1,0 +1,22 @@
+Im Folgenden werde ich die Architektur von meinem Programm beschrieben.
+
+Die Aufgabe der Gui-Klasse:
+Die Gui-Klasse übernimmt alles was mit der Dahrstellung und der Eingabe zu tun hat, ich habe mich dafür entschieden, da so die Spiellogik
+möglichst stark von der Obferfläche getrennt ist. In der On refresh methode wird immer überprüft in welcher phase des spieles man sich
+zu diesem Zeitpunktbefundet (eine der Kapfphase, nomal, ob ein monster gefunden wurde oder ob das Spiel gewonnen bzw. verloren wurde).
+Die anzeige und welche tasten getdrückt werden könnenwird nach diesem status entschieden.
+Außerdem wird immer eine bestimmte zeit gewartet, damit der spieler sich nicht zu schnell weget. Diese zeit kann man anpassen.
+Die Gui hat ein game objekt welches sich um die ganze spiellogik kümmert. Wenn ein knopf gedrückt wird wird in der Spiellokig die passende methode
+aufgerufen, also bei Pfeiltaste nach oben im normalen modus zum Beispiel die methode movePlayer mit dem parrameter up in dem game objekt aufgerufen.
+In besonderen fällen muss auch direkt eine neue phase eingeleitet werden, zum beispiel im dialog im Kapf weil ihr nur auf den Tastenanschlag gewartet wird
+und nichts in der Spiellogik passiert.
+Beim erstellen der Gui wird auch ein game erzeugt
+
+Die Aufgabe der Game-Klasse:
+Diese Klasse kümmert sich um alles was im Hintergrund passiert.
+Die movePlayer methode wird immer aufgerufen wenn der Player sich in eine Richtung bewegen soll und bekommt als Übergabewert Diese Richtung.
+Die Methode schaut nach auf was für einem Feld der Player sich jetzt befindet und ruft die dazu passenden methoden auf die dann die phasen ändern
+oder das monster z.B. heilen. Wenn der Gegner zum Beispiel auf einen Gegner trifft wird die fight-Methode aufgerufen welche sich dann um alles weitere kümmert.
+
+Zudem hat die Game-Klasse alle wichtigen Objekte und Variablen wie das Spieler-Objekt in welchen die Monster des Spielers abgespeichert sind und das Welches von der
+Gui immer wieder ausgeprintet wird

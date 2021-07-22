@@ -1,7 +1,7 @@
 #ifndef KLAUSUR_GUI_H
 #define KLAUSUR_GUI_H
 
-#include "../copyme/console-window-master/ConsoleWindow.h"
+#include "../console-window-master/ConsoleWindow.h"
 #include "../Game/Game.h"
 #include <iostream>
 

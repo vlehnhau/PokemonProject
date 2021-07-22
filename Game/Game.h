@@ -53,6 +53,7 @@ public:
     void selectNewMonster(int index);
     void fightHealing();
     void run();
+    void train();
 
     //Getter/Setter
     const std::vector<std::vector<char>> &getField() const;

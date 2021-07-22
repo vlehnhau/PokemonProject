@@ -53,9 +53,9 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
             } else if (this->game->getFighting() == 2) {
                 //choices
                 if (!this->game->isFightHealingUsed()) {
-                    printFight("Was moechtest du tun?", "1: Angriff | 2: Heilen | 3: Flucht | p: Monster wechseln");
+                    printFight("Was moechtest du tun?", "1: Angriff | 2: Heilen | 3: Flucht | 4: Trainiere Ihn | p: Monster wechseln");
                 } else {
-                    printFight("Was moechtest du tun?", "1: Angriff | 2: ------ | 3: Flucht | p: Monster wechseln");
+                    printFight("Was moechtest du tun?", "1: Angriff | 2: ------ | 3: Flucht | 4: Trainiere Ihn | p: Monster wechseln");
                 }
 
                 if (this->getPressedKey() == '1') {
@@ -68,6 +68,8 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
                     this->game->run();
                 } else if (this->getPressedKey() == 'p') {
                     this->game->setFighting(3);
+                } else if (this->getPressedKey() == '4') {
+                    this->game->train();
                 }
             } else if (this->game->getFighting() == 3) {
                 //monsterDead / monster change
@@ -149,14 +151,28 @@ Gui::Gui() : ConsoleWindow(nullptr, 100, 50) {  //Setzt die Fenstergröße
 void Gui::printBoard() {
     for (int i = 0; i < this->game->getField().size(); ++i) {
         for (int j = 0; j < this->game->getField()[i].size(); ++j) {
-            setCharacter(j, i, this->game->getField()[i][j]);
+            if(this->game->getField()[i][j] == 'G'){
+                setCharacter(j, i, QString::fromUtf8("\xF0\x9F\x8C\xB2"));
+            } else if(this->game->getField()[i][j] == 'T'){
+                setCharacter(j, i, QString::fromUtf8("\xF0\x9F\x98\x92"));
+            } else if(this->game->getField()[i][j] == 'P'){
+                setCharacter(j, i, QString::fromUtf8("\xF0\x9F\xA4\x8E"));
+            } else if(this->game->getField()[i][j] == 'Y'){
+                setCharacter(j, i, QString::fromUtf8("\xF0\x9F\x92\xAA"));
+            } else if(this->game->getField()[i][j] == '#') {
+                setCharacter(j, i, QString("\u2591"));
+            } else if(this->game->getField()[i][j] == 'E') {
+                setCharacter(j, i, QString("\u27A5"));
+            } else {
+                setCharacter(j, i, this->game->getField()[i][j]);
+            }
         }
     }
 }
 
 //der Spieler wird ausgegeben
 void Gui::printPlayer() {
-    this->setCharacter(this->game->getP()->getLocationX(), this->game->getP()->getLocationY(), '0');
+    this->setCharacter(this->game->getP()->getLocationX(), this->game->getP()->getLocationY(), QString::fromUtf8("\xF0\x9F\x98\x83"));
 }
 
 //die Steuerung wird ausgegeben
@@ -185,7 +201,7 @@ void Gui::printMonster() {
 void Gui::printFight(std::string msg) {
     this->clear();
     this->writeString(0, 5, msg);
-    this->writeString(0, 12, "###################################################");
+    this->writeString(0, 12, "####################################################################################################");
     this->writeString(0, 14, "Dialog weiter: a");
     this->writeString(0, 16, "Dein Monster:");
     this->writeString(0, 19, this->game->getP()->getM()->getName() + " " +
@@ -205,7 +221,7 @@ void Gui::printFight(std::string msg, std::string msg2) {
     this->clear();
     this->writeString(0, 5, msg);
     this->writeString(0, 6, msg2);
-    this->writeString(0, 12, "###################################################");
+    this->writeString(0, 12, "####################################################################################################");
 
     this->writeString(0, 16, "Dein Monster:");
     this->writeString(0, 19, this->game->getP()->getM()->getName() + " " +
