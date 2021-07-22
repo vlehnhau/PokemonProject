@@ -15,15 +15,16 @@ private:
     int lp_now = 20;
 
 public:
+    //konstruktor destruktor
     Monster() = default;
     Monster(std::string name, int ap, int lp);
+    ~Monster() = default;
 
     //Getter/Setter
     const std::string &getName() const;
     int getAp() const;
     int getLp() const;
     int getLpNow() const;
-    void setName(const std::string &name);
     void setAp(int ap);
     void setLp(int lp);
     void setLpNow(int lpNow);

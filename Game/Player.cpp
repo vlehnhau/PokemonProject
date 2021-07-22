@@ -1,10 +1,12 @@
 #include "Player.h"
 #include "iostream"
 
+//Es wird ein neuer Spieler erzeugt und seine Position wird abgespeichert
 Player::Player(int x, int y) {
     this->locationX = x;
     this->locationY = y;
 
+    //Das start Monster des Spielers wird erzeugt und als aktives monster gesetzt
     this->monsters.emplace_back("Feuerechse", 5, 20);
     this->m = &monsters[0];
 }
@@ -35,10 +37,6 @@ void Player::setM(Monster *m) {
 
 std::vector<Monster> *Player::getAllMonsters() {
     return &monsters;
-}
-
-void Player::setAllMonsters(std::vector<Monster> *monsters) {
-    Player::monsters = *monsters;
 }
 
 int Player::getIndexOfMonster() const {

@@ -6,7 +6,9 @@
 
 class Player {
 public:
+    //konstruktor destruktor
     Player(int x, int y);
+    ~Player() = default;
 
     //Getter/Setter
     int getLocationX() const;
@@ -16,7 +18,6 @@ public:
     void setLocationY(int locationY);
     void setM(Monster *m);
     std::vector<Monster> *getAllMonsters();
-    void setAllMonsters(std::vector<Monster> *allMonsters);
     int getIndexOfMonster() const;
     void setIndexOfMonster(int indexOfMonster);
 
@@ -27,7 +28,6 @@ private:
     int indexOfMonster = 0;
     std::vector<Monster> monsters;
     Monster *m;
-    //std::vector<Monster> allMonsters;
 };
 
 

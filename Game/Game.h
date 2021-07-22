@@ -7,44 +7,50 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <random>
 
 int rdmInt(int min, int max);
 
 class Game {
 private:
-    std::vector<std::vector<char>> field;
-    Player *p;
+    std::vector<std::vector<char>> field; //Das Spielfeld
+    Player *p; //Der Spieler
+
     bool lose = false;
     bool win = false;
+
     bool healingStartet = false;
     bool monsterFound = false;
     bool fightHealingUsed = false;
+
     int fighting = 0;
     /* 0 -> not fiting
      * 1 -> start dialog
      * 2 -> all choices (atack/heal/run/change)
-     * 3 -> monsterDead
+     * 3 -> monsterDead / chaching monster
      * 4 -> win
      * */
 
-    Monster *newMonster;
-    Monster *enemyMonster;
+    Monster *newMonster{};
+    Monster *enemyMonster{};
 
     std::chrono::system_clock::time_point healingStart;
 
     void fight();
     void heal();
-
+    bool checkFree(int x, int y);
+    void deadOrLose();
 
 public:
-    void attack();
+    //konstruktor destruktor
     Game();
-    void movePlayer(std::string moveTo);
-    bool checkFree(int x, int y);
+    ~Game() = default;
+
+    void attack();
+    void movePlayer(const std::string& moveTo);
     void newMaxHealth();
     void addMonster();
     void selectNewMonster(int index);
-    void deadOrLose();
     void fightHealing();
     void run();
 
@@ -59,7 +65,6 @@ public:
     int getFighting() const;
     void setFighting(int fighting);
     Monster *getEnemyMonster() const;
-    void setEnemyMonster(Monster *enemyMonster);
     bool isFightHealingUsed() const;
     void setFightHealingUsed(bool fightHealingUsed);
 };

@@ -7,14 +7,22 @@
 
 class Gui: public ConsoleWindow{
 protected:
+    //die funktion welche wiederholt aufgerufen wird
     void onRefresh() override;
 
 public:
+    //konstruktor destruktor
     Gui();
+    ~Gui() override = default;
 
 private:
+    //Die eigentliche Spiellogig
     Game *game;
 
+    //Die runden Zeit (der Startpunkt)
+    std::chrono::system_clock::time_point startRoundTime = std::chrono::system_clock::now();
+
+    //alle Print funktionen
     void printBoard();
     void printPlayer();
     void printInstructions();
