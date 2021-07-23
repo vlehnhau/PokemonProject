@@ -66,7 +66,18 @@ getötet hat man trd. noch den Schaden bekommt und man verlieren kann obwohl das
 Dies ist von meiner Seite aus gewollt, da ich es so für sinnvoller halte.
 Um zu zeigen dass ich dies absichtlich gemacht habe beschreibe ich kurz wie ich dies so ändere dass die Monster nach einander
 angreifen. Hier für müsste ich einfach zuerst dem Gegner den Schaden hinzufügen und nur wenn dieser nicht auf 0 gefallen ist auch
-dem Monster des Spielers den Schaden hinzufügen. Dies müsste man in der attack-Methode in dem game-Objekt ändern
+dem Monster des Spielers den Schaden hinzufügen. Dies müsste man in der attack-Methode in dem game-Objekt ändern.
+Ich habe mich dagegen entschieden da ich mir es so vorstelle das die Monster in einen Ring geworfen werden und egal ob Sie gewinnen
+oder verlieren ... sie werden verletzt.
+
+-Wenn ein Monster im Spiel besiegt wird stirbt es und es kann auch nicht Wiederbelebt werden, dafür wird aber ein neuer Platz
+im Monster-Inventar frei und der Spiel kann wieder ein neues Monster fangen.
+Um zu Beweisen dass dies eine bewusste Entscheidung war erkläre ich kurz wie man dies hätte anders machen können. Anstatt das Monster
+aus dem vector zu entfernen hätte man das monster dort drinne lassen können und und eine Variable in Monster hinzufügen können die
+angibt ob das Monster lebt (bool). So hätte man in der ausgabe der Monster auch einzeigen können dass das monster nicht zu verfügung steht
+und auch den dem entsprechenden knopf deaktivieren können. In der Heil-Methode müsste man alle Monster wider auf alive setzen.
+Ich habe es für sinnvoller gehalten die Monster in jedem Level neu zu erzeugen, sodass jedes level ein neustart ist und dann wäre es nur
+unnötig leichter gewesen dass man diese wiederbeleben kann.
 
 # Extras 
 - Es können 5 verschiede monster auftauchen
@@ -93,9 +104,10 @@ aber da es sehr abgelenkt wird bekommt es einen bleibend schaden
 - Es würde sich leicht beliebig viele Maps einbauen lassen
 
 ## Quellen
-- https://luna.informatik.uni-mainz.de/eis21/lehreinheiten.md -> ich habe die Aufgabenstellung der Übungsblätter überflogen um auf ideen zu kommen
 - https://im-coder.com/zeile-fuer-zeile-lesen-in-c-und-c.html -> damit ich eine ganze zeile lesen kann
 - https://unicode-table.com/de/search/?q=stern -> unicode code für den bonus stern
 - https://www.cplusplus.com/reference/chrono/ -> Ich habe nachgeschaut wie ich die zeit richtig einbinden kann (Dokumentation)
 - https://stackoverflow.com/questions/39288595/why-not-just-use-random-device -> Warum man nicht nur random_device benutzen soll
 - https://docs.microsoft.com/de-de/cpp/cpp/program-termination?view=msvc-160 -> wie kann ich ein Programm beenden
+
+-> alle verwendeten Quelle sind Faktenwissen

@@ -63,6 +63,8 @@ const std::vector<std::vector<char>> &Game::getField() const {
 
 //Diese Methode bewegt den Spieler und wird aufgerufen wenn die entsprechenden Tasten gedrückt werden
 void Game::movePlayer(const std::string &moveTo) {
+    int x = this->getP()->getLocationX(); //allte Location wird abgespeichert
+    int y = this->getP()->getLocationY(); //allte Location wird abgespeichert
     if (moveTo == "up") {
         if (checkFree(this->p->getLocationX(), this->p->getLocationY() -
                                                1)) {    //Hier wird überprüft ob der Spieler das gewünschte Feld betreten kann
@@ -109,8 +111,8 @@ void Game::movePlayer(const std::string &moveTo) {
         field[this->p->getLocationY()][this->p->getLocationX()] = ' ';
     }
 
-    if (field[this->p->getLocationY()][this->p->getLocationX()] ==
-        'G') {           //Wenn der Spieler auf ein Waldfeld trifft
+    if (field[this->p->getLocationY()][this->p->getLocationX()] ==                          //Wenn der Spieler auf ein Waldfeld trifft
+        'G' && (this->p->getLocationY() != y || this->p->getLocationX() != x)) {           //Es wird überprüft ob der Spieler sich auch wirklich bewegt hat
         int rdmNumber = rdmInt(1,
                                5);                                      //Wird eine Zufallszahl zwischen 1 und 5 ausgewählt (20%)
         if (rdmNumber == 5) {
