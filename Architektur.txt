@@ -10,10 +10,10 @@ Die Gui hat ein game-Objekt, welches sich um die Spiellogik kümmert. Wenn ein K
 aufgerufen. So wird bei gedrückter "Pfeiltaste-Nach-Oben" im normalen Modus zum Beispiel die Methode movePlayer mit dem Parrameter "up" über das game-Objekt aufgerufen.
 In besonderen Fällen muss auch direkt eine neue Phase eingeleitet werden. Zum Beispiel im Dialog während eines Kapfes, da hier nur auf einen Tastenanschlag gewartet wird
 und nichts in der Spiellogik passiert.
-Das game-Objekt wird im Konstruktor der Gui-Klasse erzeugt und steht daher permanent zur Verfügung.
+Das game-Objekt wird immer dann erzeugt wenn ein level ausgewählt wird und der Konstruktor von game bekommt als Parameter das ausgewählte level
 
 Die Aufgabe der Game-Klasse:
-Diese Klasse kümmert sich um sämtliche "Hintergrund-Logiken".
+Diese Klasse kümmert sich um sämtliche "Hintergrund-Logiken". Der Konstruktor liest auserdem die passende map ein.
 Die movePlayer Methode wird immer aufgerufen, wenn der Player sich in eine bestimmte Richtung bewegen soll. Diese Richtung wird der Methode beim Aufruf als Parameter übergeben.
 Die Methode schaut nach, auf was für einem Feld der Player sich zur Zeit befindet und ruft die dazu passenden Methoden auf. Diese werden dann ggf. die Phasen ändern,
 das Monster heilen usw. Wenn der Spieler auf einen Gegner trifft, wird die fight-Methode aufgerufen. Diese führt alle kampf-bezogenen Spiellogiken aus.

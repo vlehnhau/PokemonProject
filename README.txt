@@ -4,22 +4,15 @@
 - Geschrieben mit XCODE / Clang (AppleClang 12.0.5.12050022) / Qt5.12.11
 - Prozessor Apple M1 Arm64 -> QT mit Rosetta, Rest nativ
 
-Der Testrun von CMAKE auf der Kommandozeile ging vermutlich wegen M1 schief.
-CMAKE in der Kommandozeile sowie make und clang laufen nativ auf der ARM64 Architektur, während die QT Bibliothek von Rosetta emuliert wurde.
-Daher konnte das Programm QT nicht finden.
-In CLion wird alles richtig durchgeführt und das Programm kann ohne Probleme gestartet wqerden.
+Wie bekomme ich das Projekt zum laufen:
+cmake CMakeLists.txt -B "Hier das Verzeichnes wo es hin soll" -DCMAKE_OSX_ARCHITECTURES=x86_64
+--> -DCMAKE_OSX_ARCHITECTURES=x86_64 kann im Normalfall weggelassen werden, ich habe es aber gebraucht, da ich einen Apple M1 ARM64 Prozessor nutze
 
-Der Testrun von CMAKE auf der Kommandozeile hat funktioniert, wenn ich QT 6 benutzt habe,
-welches nativ auf dem ARM64 Prozessor läuft.
+make (im besagten verzeichnis ausführen)
 
---> Ich habe dafür ein paar kleine Änderungen vorgenommen. Zum Beispiel musste ich die CMAKE ändern, die ich zur Abgabe wieder auf QT 5 zurückgesetzt habe.
-(wenn man qt 6 benutzt muss
-"layout->setMargin(0);"
-in der ConsoleWindow.cpp zu
-"layout->setContentsMargins(0,0,0,0);"
-geändert werden)
+Jetzt muss der Inhalt vom copyme ordner auch ins selbe verzeichnis
 
---> Als es mit QT 6 funktioniert hat musste ich das Programm allerdings über das terminal starten, da ansonsten nicht die map geladen wurde
+Das Programm kann gestartet werden, aber bei mir war dies nur über das terminal möglich, da ansonsten die maps aus dem Copyme-Ordner nicht funktioniert haben
 
 #############
 # Steuerung #

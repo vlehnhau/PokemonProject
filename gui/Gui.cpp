@@ -1,7 +1,25 @@
 #include "Gui.h"
 
 void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuziegen und die tasten anschläge zu erkennen
-    if (int(std::chrono::duration_cast<std::chrono::microseconds>(
+    if (!gameStarted){
+        this->clear();
+        this->writeString(0,5,"Menue");
+        this->writeString(0,10,"Waehle dein Level aus");
+        this->writeString(0,12,"1. Level (Basic)");
+        this->writeString(0,14,"2. Level (Advanced)");
+        this->writeString(0,16,"3. Level (Test Level)");
+        if (this->getPressedKey() == '1') {
+            this->game = new Game(1);
+            gameStarted = true;
+        } else if (this->getPressedKey() == '2') {
+            this->game = new Game(2);
+            gameStarted = true;
+        } else if (this->getPressedKey() == '3') {
+            this->game = new Game(3);
+            gameStarted = true;
+        }
+    }
+    if (gameStarted && int(std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::system_clock::now() - startRoundTime).count()) > 50000) { //Hier wird so lange gewartet bis der spieler sich wieder bewegen kann
         //Hier wird das Board aktualisiert
         this->clear();
@@ -102,17 +120,6 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
             this->game->newMaxHealth();
         }
 
-        //Hier wird überprüft ob der spieler verloren oder gewonnen hat
-        if (this->game->isLose()) {
-            this->clear();
-            this->writeString(0, 10, "Du hast verloren!");
-            this->writeString(0,12, "Dein Score: " + std::to_string(this->game->getScore()));
-        } else if (this->game->isWin()) {
-            this->clear();
-            this->writeString(0, 10, "Du hast gewonnen!");
-            this->writeString(0,12, "Dein Score: " + std::to_string(this->game->getScore()));
-        }
-
         //Hier ist die Anzeige, für den Fall dass ein wildes Monster gefunden wurde
         if (this->game->isMonsterFound()) {
             if (this->game->getP()->getAllMonsters()->size() < 6) {
@@ -141,13 +148,32 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
                                      std::to_string(this->game->getP()->getAllMonsters()->size()));
             this->printMonster();
         }
+
+        //Hier wird überprüft ob der spieler verloren oder gewonnen hat
+        if (this->game->isLose()) {
+            this->clear();
+            this->writeString(0, 10, "Du hast verloren!");
+            this->writeString(0,12, "Dein Score: " + std::to_string(this->game->getScore()));
+            this->writeString(0, 14, "Zurueck zum Menue?: a");
+            if (this->getPressedKey() == 'a') {
+                this->gameStarted = false;
+            }
+        } else if (this->game->isWin()) {
+            this->clear();
+            this->writeString(0, 10, "Du hast gewonnen!");
+            this->writeString(0,12, "Dein Score: " + std::to_string(this->game->getScore()));
+            this->writeString(0, 14, "Zurueck zum Menue?: a");
+            if (this->getPressedKey() == 'a') {
+                this->gameStarted = false;
+            }
+        }
         startRoundTime = std::chrono::system_clock::now();//Hier wird eine neue runden Zeit begonnen sodass oben passend gewartet werden kann
     }
 }
 
 //Constructor
 Gui::Gui() : ConsoleWindow(nullptr, 100, 50) {  //Setzt die Fenstergröße
-    this->game = new Game();
+
 }
 
 //das Board wird ausgegeben

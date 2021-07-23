@@ -18,6 +18,7 @@ public:
 private:
     //Die eigentliche Spiellogig
     Game *game;
+    bool gameStarted = false;
 
     //Die runden Zeit (der Startpunkt)
     std::chrono::system_clock::time_point startRoundTime = std::chrono::system_clock::now();

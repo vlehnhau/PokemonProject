@@ -11,9 +11,17 @@ int rdmInt(int min, int max) {
 }
 
 //konstruktor
-Game::Game() {
+Game::Game(int lvl) {
     //die einzulesene map
-    std::fstream input("map_advanced.txt"); // ("map_basic.txt")
+    std::fstream input;
+    if(lvl == 1){
+        input = std::fstream("map_basic.txt");
+    } else if(lvl == 2){
+        input = std::fstream("map_advanced.txt");
+    } else if(lvl == 3) {
+        input = std::fstream("map_test.txt");
+    }
+
     std::string line;
 
     for (int i = 0; i < 30; ++i) {

@@ -45,7 +45,7 @@ private:
 
 public:
     //konstruktor destruktor
-    Game();
+    Game(int lvl);
     ~Game() = default;
 
     void attack();
