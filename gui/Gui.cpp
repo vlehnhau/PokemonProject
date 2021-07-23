@@ -37,7 +37,7 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
         this->printScore();
 
         //Hier wird nachgeschaut in welcher Spielphase der Spieler sich befindet und dementsprechent die passenden tasten genutzt
-        if (!this->game->isMonsterFound() && this->game->getFighting() == 0) {
+        if (!this->game->isMonsterFound() && this->game->getFighting() == 0 && !this->game->isLose() && !this->game->isWin()) {
             //normal
             if (this->getPressedKey() == CURSOR_UP) {
                 this->game->movePlayer("up");
@@ -60,7 +60,7 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
             } else if (this->getPressedKey() == '6') {
                 this->game->selectNewMonster(5);
             }
-        } else if (this->game->getFighting() == 0) {
+        } else if (this->game->getFighting() == 0 && !this->game->isLose() && !this->game->isWin()) {
             //take the monster
             if (this->getPressedKey() == '1' && this->game->getP()->getAllMonsters()->size() < 6) {
                 this->game->addMonster();
@@ -70,7 +70,7 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
                 delete this->game->getNewMonster();
                 this->game->setNewMonster(nullptr);
             }
-        } else if (!this->game->isMonsterFound() && this->game->getFighting() != 0) {
+        } else if (!this->game->isMonsterFound() && this->game->getFighting() != 0 && !this->game->isLose() && !this->game->isWin()) {
             //fighting
             if (this->game->getFighting() == 1) {
                 //dialog
@@ -86,7 +86,7 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
                     printFight("Was moechtest du tun?", "1: Angriff | 2: ------ | 3: Flucht | 4: Trainiere Ihn | p: Monster wechseln");
                 }
 
-                if(this->game->getP()->getM()->getSpecial() != 0 && this->getPressedKey() == 's'){
+                if(this->game->getP()->getM()->getSpecial() != 0 && this->getPressedKey() == 's' && !this->game->isLose() && !this->game->isWin()){
                     if(this->game->getP()->getM()->getSpecial() == 1){
                         this->game->specialAttack(1);
                     } else if(this->game->getP()->getM()->getSpecial() == 2){
@@ -96,20 +96,20 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
                     }
                 }
 
-                if (this->getPressedKey() == '1') {
+                if (this->getPressedKey() == '1' && !this->game->isLose() && !this->game->isWin()) {
                     this->game->attack();
-                } else if (this->getPressedKey() == '2') {
+                } else if (this->getPressedKey() == '2' && !this->game->isLose() && !this->game->isWin()) {
                     if (!this->game->isFightHealingUsed()) {
                         this->game->fightHealing();
                     }
-                } else if (this->getPressedKey() == '3') {
+                } else if (this->getPressedKey() == '3' && !this->game->isLose() && !this->game->isWin()) {
                     this->game->run();
-                } else if (this->getPressedKey() == 'p') {
+                } else if (this->getPressedKey() == 'p' && !this->game->isLose() && !this->game->isWin()) {
                     this->game->setFighting(3);
-                } else if (this->getPressedKey() == '4') {
+                } else if (this->getPressedKey() == '4' && !this->game->isLose() && !this->game->isWin()) {
                     this->game->train();
                 }
-            } else if (this->game->getFighting() == 3) {
+            } else if (this->game->getFighting() == 3 && !this->game->isLose() && !this->game->isWin()) {
                 //monsterDead / monster change
                 if (this->getPressedKey() == '1') {
                     this->game->selectNewMonster(0);
@@ -124,7 +124,7 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
                 } else if (this->getPressedKey() == '6') {
                     this->game->selectNewMonster(5);
                 }
-            } else if (this->game->getFighting() == 4) {
+            } else if (this->game->getFighting() == 4 && !this->game->isLose() && !this->game->isWin()) {
                 //win
                 printFight("Du hast Gary besiegt");
                 if (this->getPressedKey() == 'a') {
