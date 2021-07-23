@@ -56,6 +56,7 @@ public:
     void fightHealing();
     void run();
     void train();
+    void specialAttack(int index);
 
     //Getter/Setter
     const std::vector<std::vector<char>> &getField() const;

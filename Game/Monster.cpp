@@ -33,9 +33,18 @@ void Monster::setLpNow(int lpNow) {
 }
 
 //Hier wird ein Monster erstellt welches von dem anfangsmonster abweicht und alle werte werden gesetzt
-Monster::Monster(std::string name, int ap, int lp) {
+Monster::Monster(std::string name, int ap, int lp, int special) {
     this->name = name;
     this->ap = ap;
     this->lp = lp;
     this->lp_now = lp;
+    this->special = special;
+}
+
+int Monster::getSpecial() const {
+    return special;
+}
+
+void Monster::setSpecial(int special) {
+    Monster::special = special;
 }

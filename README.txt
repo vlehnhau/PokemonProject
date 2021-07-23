@@ -8,13 +8,13 @@
 
 #Wie bekomme ich das Projekt zum laufen:
 cmake CMakeLists.txt -B "Hier das Verzeichnes wo es hin soll" -DCMAKE_OSX_ARCHITECTURES=x86_64
---> -DCMAKE_OSX_ARCHITECTURES=x86_64 kann im Normalfall weggelassen werden, ich habe es aber gebraucht, da ich einen Apple M1 ARM64 Prozessor nutze
+--> -DCMAKE_OSX_ARCHITECTURES=x86_64 wird nur beim build auf einer ARM64 Architektur benötigt. Normalerweise kann dieser Befehl weggelassen werden.
 
-make (im besagten verzeichnis ausführen)
+make (im besagten Verzeichnis ausführen)
 
-Jetzt muss der Inhalt vom copyme ordner auch ins selbe verzeichnis
+Jetzt muss der Inhalt vom copyme-Ordner auch ins selbe Verzeichnis.
 
-Das Programm kann gestartet werden, aber bei mir war dies nur über das terminal möglich, da ansonsten die maps aus dem Copyme-Ordner nicht funktioniert haben
+Das Programm kann gestartet werden. Bei mir war dies nur über das Terminal möglich, da ansonsten die Maps aus dem Copyme-Ordner nicht funktioniert haben.
 
 
 ## Notizen an die Korrigierenden
@@ -22,11 +22,11 @@ Das Programm kann gestartet werden, aber bei mir war dies nur über das terminal
 # Steuerung
 #Menü
 - Tasten zum Wählen des Levels: 1 - 3
-- Taste zum verlassen des Spiel: e
+- Taste zum Verlassen des Spiel: e
 
 #Normal
 - Steuerung des Characters: Pfeiltasten
-- Monster wechseln: Zahlen für einstprechendes Monster
+- Monster wechseln: Zahlen für ein entsprechendes Monster
 
 #Kampf
 - Monster wechseln: p
@@ -34,6 +34,7 @@ Das Programm kann gestartet werden, aber bei mir war dies nur über das terminal
 - Angriff: 1
 - Heilen: 2
 - Flucht: 3
+- Special Angriif: s
 
 #Monsterfangen
 - Fangen: 1
@@ -59,49 +60,58 @@ Das Programm kann gestartet werden, aber bei mir war dies nur über das terminal
 # Zusatzinformationen
 
 
--Zum Zeitpunkt der Abgabe läuft das Programm fehlerfrei auf dem oben beschriebenen System
+-Zum Zeitpunkt der Abgabe läuft das Programm fehlerfrei auf dem oben beschriebenen System.
 
--In meinem Spiel greifen sich die Monster immer gegenseitig an, dass hat zur Folge das auch wenn man das gegnerische Monster
-getötet hat man trd. noch den Schaden bekommt und man verlieren kann obwohl das gegnerische Monster tot ist.
-Dies ist von meiner Seite aus gewollt, da ich es so für sinnvoller halte.
-Um zu zeigen dass ich dies absichtlich gemacht habe beschreibe ich kurz wie ich dies so ändere dass die Monster nach einander
-angreifen. Hier für müsste ich einfach zuerst dem Gegner den Schaden hinzufügen und nur wenn dieser nicht auf 0 gefallen ist auch
-dem Monster des Spielers den Schaden hinzufügen. Dies müsste man in der attack-Methode in dem game-Objekt ändern.
-Ich habe mich dagegen entschieden da ich mir es so vorstelle das die Monster in einen Ring geworfen werden und egal ob Sie gewinnen
-oder verlieren ... sie werden verletzt.
-
--Wenn ein Monster im Spiel besiegt wird stirbt es und es kann auch nicht Wiederbelebt werden, dafür wird aber ein neuer Platz
+-Wenn ein Monster im Spiel besiegt wird, stirbt es und es kann auch nicht Wiederbelebt werden. Dafür wird aber ein neuer Platz
 im Monster-Inventar frei und der Spiel kann wieder ein neues Monster fangen.
-Um zu Beweisen dass dies eine bewusste Entscheidung war erkläre ich kurz wie man dies hätte anders machen können. Anstatt das Monster
-aus dem vector zu entfernen hätte man das monster dort drinne lassen können und und eine Variable in Monster hinzufügen können die
-angibt ob das Monster lebt (bool). So hätte man in der ausgabe der Monster auch einzeigen können dass das monster nicht zu verfügung steht
-und auch den dem entsprechenden knopf deaktivieren können. In der Heil-Methode müsste man alle Monster wider auf alive setzen.
-Ich habe es für sinnvoller gehalten die Monster in jedem Level neu zu erzeugen, sodass jedes level ein neustart ist und dann wäre es nur
-unnötig leichter gewesen dass man diese wiederbeleben kann.
+Um zu beweisen, dass dies eine bewusste Entscheidung war, erkläre ich kurz, wie man dies hätte anders machen können. Anstatt das Monster
+aus dem vector zu entfernen, hätte man das Monster dort drinnen lassen können und eine Variable dem Monster hinzufügen können, die
+angibt, ob das Monster lebt (bool). So hätte man in der Ausgabe der Monster auch anzeigen können, dass das Monster nicht zu Verfügung steht
+und auch den dementsprechenden Knopf deaktivieren können. In der Heil-Methode müsste man alle Monster wieder auf alive setzen.
+Ich habe es für sinnvoller gehalten, die Monster in jedem Level neu zu erzeugen, sodass jedes Level ein Neustart ist und dann wäre es nur
+unnötig leichter gewesen, dass man diese wiederbeleben kann.
 
 # Extras
-- Es können 5 verschiede monster auftauchen
-- Man kann sein Monster im Kampf tranieren, dann werden 5 LP von der Maximalen LPs abgezogen und man bekommt 2 Ap mehr
+- Es können 5 verschiede Monster auftauchen.
+
+1. Fisch | 1 LP | 1 AP
+2. OverPower | 50 LP | 50 AP
+3. Tanki | 50 LP | 3 AP
+4. SuperStark | 5 LP | 10 AP
+
+--> Derzeit sind alle wahrscheinlichkeiten gleich hoch ... damit das spiel sinn macht müsste es zum beispiel extrem unwarscheinlich sein das Monster
+OverPower zu finden. Dies habe ich nicht gemacht damit man alle Monster bekommen kann und sie testen kann.
+
+
+- Man kann sein Monster im Kampf tranieren. Es werden 5 LP von der Maximalen LPs abgezogen und man bekommt 2 Ap mehr.
 --> Begründung:
-Man traniert sein Monster während dem Kampf und dadurch wird es stärker,
-aber da es sehr abgelenkt wird bekommt es einen bleibend schaden
+Man traniert sein Monster während des Kampfes. Dadurch wird es stärker,
+gleichzeitig aber auch abgelenkt, wodurch es einen bleibenden Schaden bekommt.
 
 -Scoresystem:
 
  - Jedes Monster das stirbt: -5 Punkte
  - Jedes Monster welches aufgesammelt wird: +5 Punkte
  - Das Ziel erreichen: +50 Punkte
- - Bonus Punkte: +20 Punkte -> ich habe einen neuen Block eingeführt welcher auf der advancedmap 3x vorhanden ist
+ - Bonus Punkte: +20 Punkte -> ich habe einen neuen Block eingeführt, welcher auf der advancedmap 3x vorhanden ist.
  - Einen Kampf gewinnen: +20 Punkte
  - Sterben: -50 Punkte:
 
 -Menü:
 
-- Man kann am Anfang eingeben welches Level man spielen will
-- Man kann das Spiel im Menue beenden;
-- Man kann wenn man auf dem end-screen ist (win oder lose) wieder zurück ins Menü und ein neues level Spielen
-- Ich habe ein neues Level eingeführt in welchem sich alle Funktionen leich und schnell testen lassen
-- Es würde sich leicht beliebig viele Maps einbauen lassen
+- Man kann am Anfang eingeben, welches Level man spielen will.
+- Man kann das Spiel im Menü beenden.
+- Man kann, wenn man auf dem end-screen ist (win oder lose), wieder zurück ins Menü und ein neues level Spielen.
+- Ich habe ein neues Level eingeführt, in welchem sich alle Funktionen leicht und schnell testen lassen.
+- Es würden sich leicht beliebig viele Maps einbauen lassen.
+
+-Specialattacke:
+
+- SuperTaube kann jetzt aus jedem Kampf fliehen und die erfolgswahrscheinlichkeit liegt bei ihr nicht bei 80 sondern bei 100%
+- OverPower kann jetzt den Gegner schwächen und zieht dem Gegner 2 AP ab (Der Gegner kann nicht unter 1 AP fallen)
+- SuperStark kann jetzt dem Gegner 2 LP klauen und bekommt Sie selbst -> seine max LP können nicht übertroffen werden und der Gegner kann mit dieser Attacke nicht getötet werden (nicht unter 1 LP)
+
+- nach jeder Special attacke greift immernoch der Gegner an
 
 ## Quellen
 - https://im-coder.com/zeile-fuer-zeile-lesen-in-c-und-c.html -> damit ich eine ganze zeile lesen kann

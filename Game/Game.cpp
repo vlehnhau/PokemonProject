@@ -119,15 +119,15 @@ void Game::movePlayer(const std::string &moveTo) {
             rdmNumber = rdmInt(1, 5);
             this->monsterFound = true;                                              //Wird die monster fangen Phase eingeleitet
             if (rdmNumber == 1) {
-                this->newMonster = new Monster("SuperTaube", 3,10);      //und eine neues Monster erzeugt und in der dafür vorgesehenen variable abgespeichert
+                this->newMonster = new Monster("SuperTaube", 3,10, 1);      //und eine neues Monster erzeugt und in der dafür vorgesehenen variable abgespeichert
             } else if (rdmNumber == 2) {
-                this->newMonster = new Monster("Fisch", 1,1);
+                this->newMonster = new Monster("Fisch", 1,1, 0);
             } else if (rdmNumber == 3) {
-                this->newMonster = new Monster("OverPower", 50,50);
+                this->newMonster = new Monster("OverPower", 50,50, 2);
             } else if (rdmNumber == 4) {
-                this->newMonster = new Monster("Tanki", 3,50);
+                this->newMonster = new Monster("Tanki", 3,50, 0);
             } else if (rdmNumber == 5) {
-                this->newMonster = new Monster("SuperStark", 10,5);
+                this->newMonster = new Monster("SuperStark", 10,5, 3);
             }
         }
     }
@@ -152,11 +152,11 @@ Player *Game::getP() const {
 void Game::fight() {
     int rdmNumber = rdmInt(1, 3); //Es wird eine Zufallszahl bestimmt um zu entscheiden welches monster der Gegner hat
     if (rdmNumber == 1) {
-        this->enemyMonster = new Monster("Donnerratte", 5, 16);
+        this->enemyMonster = new Monster("Donnerratte", 5, 16, 0);
     } else if (rdmNumber == 2) {
-        this->enemyMonster = new Monster("Baumbaum", 5, 7);
+        this->enemyMonster = new Monster("Baumbaum", 5, 7, 0);
     } else if (rdmNumber == 3) {
-        this->enemyMonster = new Monster("Wasserkroete", 3, 10);
+        this->enemyMonster = new Monster("Wasserkroete", 3, 10, 0);
     }
     //Das entsprechende Monster wurde erstellt und in der entsprechenden Variable abgespeichert
 
@@ -266,14 +266,15 @@ Monster *Game::getEnemyMonster() const {
 void Game::attack() {
     enemyMonster->setLpNow(
             enemyMonster->getLpNow() - p->getM()->getAp()); //Das leben von dem gegnerischen monster wird runter gesetzt
-    p->getM()->setLpNow(p->getM()->getLpNow() -
-                        enemyMonster->getAp()); //Das leben des eigenen Monsterswird entsprechend runter gesetzt
     if (enemyMonster->getLpNow() <= 0) {  //Es wird nachgeschaut ob das gegnerische monster tot ist
         enemyMonster->setLpNow(
                 0);  //damit die anzeige stimmt müssen die lp auf 0 gesetzt werden da sie sonst evtl. negativ wären
         p->getM()->setAp(p->getM()->getAp() + 1); //Die Ap des aktiven monsters des Spielers werden um 1 angehoben
         this->fighting = 4; //Die letzte Phase des Kampfes wird eingeleitet
         this->score = score + 20;
+    } else {
+        p->getM()->setLpNow(p->getM()->getLpNow() -
+                            enemyMonster->getAp()); //Das leben des eigenen Monsterswird entsprechend runter gesetzt
     }
     deadOrLose(); //Es wird nachgeschaut ob der Spieler dies Runde überlebt hat
 }
@@ -342,4 +343,29 @@ void Game::setNewMonster(Monster *newMonster) {
 
 void Game::setEnemyMonster(Monster *enemyMonster) {
     Game::enemyMonster = enemyMonster;
+}
+
+void Game::specialAttack(int index) {
+    if (index == 1) {
+        std::cout << "ja hier war ich";
+        this->setFighting(0);   //Die kampfphase ist beendet
+        std::cout << "1";
+    } else if (index == 2) {
+        this->enemyMonster->setAp(this->enemyMonster->getAp()-2);
+        if(this->enemyMonster->getAp() < 1){
+            this->enemyMonster->setAp(1);
+        }
+        p->getM()->setLpNow(p->getM()->getLpNow() - enemyMonster->getAp()); //Der Gegner greift an
+        this->deadOrLose();
+    } else if (index == 3){
+        if(this->enemyMonster->getLpNow()>2){
+            this->enemyMonster->setLpNow(this->enemyMonster->getLpNow()-2);
+            this->p->getM()->setLpNow(this->p->getM()->getLpNow()+2);
+            if(this->p->getM()->getLpNow() > this->p->getM()->getLp()){
+                this->p->getM()->setLpNow(this->p->getM()->getLp());
+            }
+        }
+        p->getM()->setLpNow(p->getM()->getLpNow() - enemyMonster->getAp()); //Der Gegner greift an
+        this->deadOrLose();
+    }
 }

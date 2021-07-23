@@ -7,7 +7,7 @@ Player::Player(int x, int y) {
     this->locationY = y;
 
     //Das start Monster des Spielers wird erzeugt und als aktives monster gesetzt
-    this->monsters.emplace_back("Feuerechse", 5, 20);
+    this->monsters.emplace_back();
     this->m = &monsters[0];
 }
 
