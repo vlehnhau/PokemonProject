@@ -19,6 +19,8 @@ Game::Game(int lvl) {
     } else if(lvl == 2){
         input = std::fstream("map_advanced.txt");
     } else if(lvl == 3) {
+        input = std::fstream("map_boss.txt");
+    } else if(lvl == 4) {
         input = std::fstream("map_test.txt");
     }
 
@@ -347,9 +349,7 @@ void Game::setEnemyMonster(Monster *enemyMonster) {
 
 void Game::specialAttack(int index) {
     if (index == 1) {
-        std::cout << "ja hier war ich";
         this->setFighting(0);   //Die kampfphase ist beendet
-        std::cout << "1";
     } else if (index == 2) {
         this->enemyMonster->setAp(this->enemyMonster->getAp()-2);
         if(this->enemyMonster->getAp() < 1){

@@ -7,8 +7,9 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
         this->writeString(0,10,"Waehle dein Level aus");
         this->writeString(0,12,"1. Level (Basic)");
         this->writeString(0,14,"2. Level (Advanced)");
-        this->writeString(0,16,"3. Level (Test Level)");
-        this->writeString(0,20,"e: Veralssen des Spiels");
+        this->writeString(0,16,"3. Level (Boss Level)");
+        this->writeString(0,18,"4. Level (Test Level)");
+        this->writeString(0,22,"e: Veralssen des Spiels");
         if (this->getPressedKey() == '1') {
             this->game = new Game(1);
             gameStarted = true;
@@ -17,6 +18,9 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
             gameStarted = true;
         } else if (this->getPressedKey() == '3') {
             this->game = new Game(3);
+            gameStarted = true;
+        } else if (this->getPressedKey() == '4') {
+            this->game = new Game(4);
             gameStarted = true;
         } else if (this->getPressedKey() == 'e') {
             exit(0);
