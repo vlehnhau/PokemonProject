@@ -9,6 +9,7 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
         this->printPlayer();
         this->printInstructions();
         this->printMonster();
+        this->printScore();
 
         //Hier wird nachgeschaut in welcher Spielphase der Spieler sich befindet und dementsprechent die passenden tasten genutzt
         if (!this->game->isMonsterFound() && this->game->getFighting() == 0) {
@@ -105,9 +106,11 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
         if (this->game->isLose()) {
             this->clear();
             this->writeString(0, 10, "Du hast verloren!");
+            this->writeString(0,12, "Dein Score: " + std::to_string(this->game->getScore()));
         } else if (this->game->isWin()) {
             this->clear();
             this->writeString(0, 10, "Du hast gewonnen!");
+            this->writeString(0,12, "Dein Score: " + std::to_string(this->game->getScore()));
         }
 
         //Hier ist die Anzeige, für den Fall dass ein wildes Monster gefunden wurde
@@ -163,6 +166,8 @@ void Gui::printBoard() {
                 setCharacter(j, i, QString("\u2591"));
             } else if(this->game->getField()[i][j] == 'E') {
                 setCharacter(j, i, QString("\u27A5"));
+            } else if(this->game->getField()[i][j] == '*'){
+                setCharacter(j, i, QString("\u2B50"));
             } else {
                 setCharacter(j, i, this->game->getField()[i][j]);
             }
@@ -177,19 +182,19 @@ void Gui::printPlayer() {
 
 //die Steuerung wird ausgegeben
 void Gui::printInstructions() {
-    this->writeString(0, 31, "Steuerung: Pfeiltasten / Tasten 1 - 6 zum Waehlen des aktiven Monsters");
+    this->writeString(0, 30, "Steuerung: Pfeiltasten / Tasten 1 - 6 zum Waehlen des aktiven Monsters");
 }
 
 //alle eigenen Monster und das aktive Monster wird ausgegeben
 void Gui::printMonster() {
-    this->writeString(0, 33, "Aktuelles Monster: " + this->game->getP()->getM()->getName() + " " +
+    this->writeString(0, 35, "Aktuelles Monster: " + this->game->getP()->getM()->getName() + " " +
                              std::to_string(this->game->getP()->getM()->getLpNow()) + " / " +
                              std::to_string(this->game->getP()->getM()->getLp()) + " LP  Angriff: " +
                              std::to_string(this->game->getP()->getM()->getAp()));
 
 
     for (int i = 0; i < this->game->getP()->getAllMonsters()->size(); ++i) {
-        this->writeString(0, 35 + i,
+        this->writeString(0, 37 + i,
                           std::to_string(i + 1) + "." + (*this->game->getP()->getAllMonsters())[i].getName() + " " +
                           std::to_string((*this->game->getP()->getAllMonsters())[i].getLpNow()) + " / " +
                           std::to_string((*this->game->getP()->getAllMonsters())[i].getLp()) + " LP  Angriff: " +
@@ -234,4 +239,9 @@ void Gui::printFight(std::string msg, std::string msg2) {
                               std::to_string(this->game->getEnemyMonster()->getLpNow()) + " / " +
                               std::to_string(this->game->getEnemyMonster()->getLp()) + " LP  Angriff: " +
                               std::to_string(this->game->getEnemyMonster()->getAp()));
+}
+
+//Hier wird der Score ausgegeben
+void Gui::printScore() {
+    this->writeString(0, 32, "Score: " + std::to_string(this->game->getScore()));
 }

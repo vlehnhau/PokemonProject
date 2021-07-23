@@ -13,10 +13,10 @@
 #     ###################GGGG#             #PPPPPPPPPPPPPPPPPPPPPPPPPP        #
 #     T                 #GGGG###########################################      #
 #                       #GGGG#####################                            #
-#####################   #GGGGGGGGGGGGGGGGGGGG           #######################
+#####################   #GGGGGG*GGGGGGGGGGGGG           #######################
 #       T           # T #GGGGGGGGGGGGGGGGGGGG             ###     GGGGGGG     #
 #                   #   #  ###################            ###  ####GGGGG##TT###
-#                       #  #                 ###          ###  #  #GGGGG#     #
+#        *              #  #                 ###          ###  #  #GGGGG#     #
 #   #####################  #                    ####           #  #GGGGG#     #
 #   #                   #  #  dunkeldunkel wald    #      ######  #######     #
 #   ##########          #  #                       #                ######TT###
@@ -24,7 +24,7 @@
 ###########   ###########  #     #GGGGGGGGGGGGGGG#      #           # #    ####
 #  ashs   # 0 #   haus  #  #     #GGGGGGGGGGGGGG##      #GGGGG#     # ##  #####
 ###########   ###########  #     ##GGGGGGGGGGGGG        #GGGGG#               E
-#PPPPPPPPPPPPPPPPPPPPPPP#  #      GGGGGGGGGGGGGG##      #GGGGG#     # ##  #####
+#PPPPPPPPPPPPPPPPPPPPPPP#  #   *  GGGGGGGGGGGGGG##      #GGGGG#     # ##  #####
 #PPPPPPPPPPPPPPPPPPPPPPP#  ##    ##GGGGGGGGGGGGGG#      #GGGGG#     ###########
 #PPPPPPPPPPPPPPPPPPPPPPP#        #GGGGGGGGGGGGGGG#            #     # ausgang #
 ###############################################################################

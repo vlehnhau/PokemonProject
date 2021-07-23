@@ -16,6 +16,8 @@ private:
     std::vector<std::vector<char>> field; //Das Spielfeld
     Player *p; //Der Spieler
 
+    int score = 0;
+
     bool lose = false;
     bool win = false;
 
@@ -68,6 +70,8 @@ public:
     Monster *getEnemyMonster() const;
     bool isFightHealingUsed() const;
     void setFightHealingUsed(bool fightHealingUsed);
+    int getScore() const;
+    void setScore(int score);
 };
 
 #endif //KLAUSUR_GAME_H

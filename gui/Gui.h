@@ -29,6 +29,7 @@ private:
     void printMonster();
     void printFight(std::string msg);
     void printFight(std::string msg, std::string msg2);
+    void printScore();
 };
 
 

@@ -88,11 +88,18 @@ void Game::movePlayer(const std::string &moveTo) {
     if (field[this->p->getLocationY()][this->p->getLocationX()] ==
         'E') {           //Wenn der Spieler ins Ziel geht, wird die win Variable auf ture gesetzt, sodass sich die anzeige ändern kann
         this->win = true;
+        this->score = score + 50;
     }
 
     if (field[this->p->getLocationY()][this->p->getLocationX()] ==
         'P') {           //Wenn der Spieler auf ein Heilfeld trifft, wird die heilmethode aufgerufen
         this->heal();
+    }
+
+    if (field[this->p->getLocationY()][this->p->getLocationX()] ==
+        '*') {           //Wenn der Spieler auf ein Bonusfeld;
+        this->score = score + 20;
+        field[this->p->getLocationY()][this->p->getLocationX()] = ' ';
     }
 
     if (field[this->p->getLocationY()][this->p->getLocationX()] ==
@@ -156,8 +163,13 @@ void Game::deadOrLose() {
                                          this->getP()->getIndexOfMonster()); //Das Tote hauptmonster wird entfernt
         if (this->p->getAllMonsters()->size() == 0) { //Wenn kein Monster mehr vorhanden ist -> hat der Spieler verloren
             this->lose = true;
+            this->score = score - 50;
+            if(this->score < 0){
+                this->score = 0;
+            }
         } else {
             this->fighting = 3; //Es wird die Phase eingeleitet in welcher der Spieler in neues Monster auswählen muss
+            this->score = score - 5;
         }
     }
 }
@@ -207,8 +219,8 @@ void Game::setMonsterFound(bool monsterFound) {
 //Hier wird ein neues Monster zu den Spielermonstern hinzugefügt
 void Game::addMonster() {
     this->p->getAllMonsters()->push_back(*newMonster); //das Gefundene Monster wird hinzugefügt
-    this->p->setM(
-            &(*this->p->getAllMonsters())[this->p->getIndexOfMonster()]); //Das vorherig aktive monster, wird zum aktiven monster
+    this->p->setM(&(*this->p->getAllMonsters())[this->p->getIndexOfMonster()]); //Das vorherig aktive monster, wird zum aktiven monster
+    this->score = score + 5;
 }
 
 //Hier wird ein neues Monster ausgefählt -> der übergabe werde ist die Stelle im vector an welchem sich dieses befindet
@@ -218,6 +230,7 @@ void Game::selectNewMonster(int index) {
             0) {                     //Es wird überprüft ob man sich gerade im Kampf befindet, um zu schauen ob man die Kampfphase danach wieder ändern müss
             if (enemyMonster->getLpNow() == 0) {
                 this->fighting = 4;                  //Das monster ist zwar tot aber der Spieler hat noch ein anderes und danach trd. gewonnen weil der gegner im selben zug gestorben ist
+                this->score = score + 20;
             } else {
                 this->fighting = 2;                  //Der Kampf geht normal weiter
             }
@@ -251,6 +264,7 @@ void Game::attack() {
                 0);  //damit die anzeige stimmt müssen die lp auf 0 gesetzt werden da sie sonst evtl. negativ wären
         p->getM()->setAp(p->getM()->getAp() + 1); //Die Ap des aktiven monsters des Spielers werden um 1 angehoben
         this->fighting = 4; //Die letzte Phase des Kampfes wird eingeleitet
+        this->score = score + 20;
     }
     deadOrLose(); //Es wird nachgeschaut ob der Spieler dies Runde überlebt hat
 }
@@ -301,4 +315,12 @@ void Game::train() {
 
     p->getM()->setLpNow(p->getM()->getLpNow() - enemyMonster->getAp()); //Der Gegner greift an
     this->deadOrLose();
+}
+
+int Game::getScore() const {
+    return score;
+}
+
+void Game::setScore(int score) {
+    score = score;
 }
