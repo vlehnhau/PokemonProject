@@ -7,6 +7,9 @@
 Der Testrun von CMAKE auf der Kommandozeile ging vermutlich wegen M1 schief.
 In CLion wurde alles richtig durchgeführt
 
+Der Testrun von CMAKE auf der Kommandozeile hat funktioniert wenn ich QT 6 benutzt habe
+welches nativ auf dem ARM64 Prozessor läuft
+
 #############
 # Steuerung #
 #############
