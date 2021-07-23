@@ -103,6 +103,7 @@ gleichzeitig aber auch abgelenkt, wodurch es einen bleibenden Schaden bekommt.
 - Man kann das Spiel im Menü beenden.
 - Man kann, wenn man auf dem end-screen ist (win oder lose), wieder zurück ins Menü und ein neues level Spielen.
 - Ich habe ein neues Level eingeführt, in welchem sich alle Funktionen leicht und schnell testen lassen.
+- Ein weiteres Boss-Level ist auch dazu gekommen.--> Die Level sollen zeigen dass sich ohne viel auf Wand neue Level mit den gegebenen möglichkeiten einbinden lasse
 - Es würden sich leicht beliebig viele Maps einbauen lassen.
 
 -Specialattacke:

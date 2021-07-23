@@ -267,10 +267,10 @@ Monster *Game::getEnemyMonster() const {
 //Es wird angegriffen
 void Game::attack() {
     enemyMonster->setLpNow(
-            enemyMonster->getLpNow() - p->getM()->getAp()); //Das leben von dem gegnerischen monster wird runter gesetzt
-    if (enemyMonster->getLpNow() <= 0) {  //Es wird nachgeschaut ob das gegnerische monster tot ist
+            enemyMonster->getLpNow() - p->getM()->getAp()); //Das leben von dem gegnerischen Monster wird runter gesetzt
+    if (enemyMonster->getLpNow() <= 0) {  //Es wird nachgeschaut ob das gegnerische Monster tot ist
         enemyMonster->setLpNow(
-                0);  //damit die anzeige stimmt müssen die lp auf 0 gesetzt werden da sie sonst evtl. negativ wären
+                0);  //damit die Anzeige stimmt müssen die lp auf 0 gesetzt werden da sie sonst evtl. negativ wären
         p->getM()->setAp(p->getM()->getAp() + 1); //Die Ap des aktiven monsters des Spielers werden um 1 angehoben
         this->fighting = 4; //Die letzte Phase des Kampfes wird eingeleitet
         this->score = score + 20;
@@ -349,7 +349,7 @@ void Game::setEnemyMonster(Monster *enemyMonster) {
 
 void Game::specialAttack(int index) {
     if (index == 1) {
-        this->setFighting(0);   //Die kampfphase ist beendet
+        this->setFighting(0);   //Die Kampfphase ist beendet
     } else if (index == 2) {
         this->enemyMonster->setAp(this->enemyMonster->getAp()-2);
         if(this->enemyMonster->getAp() < 1){
