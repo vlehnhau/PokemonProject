@@ -2,13 +2,22 @@
 # Spezifikationen #
 ###################
 - Geschrieben mit XCODE / Clang (AppleClang 12.0.5.12050022) / Qt5.12.11
-- Prozessor Apple M1 Arm64 -> mit Rosetta
+- Prozessor Apple M1 Arm64 -> QT mit Rosetta, Rest nativ
 
 Der Testrun von CMAKE auf der Kommandozeile ging vermutlich wegen M1 schief.
-In CLion wurde alles richtig durchgeführt
+CMAKE in der Kommandozeile sowie make und clang laufen nativ auf der ARM64 Architektur, während die QT Bibliothek von Rosetta emuliert wurde.
+Daher konnte das Programm QT nicht finden.
+In CLion wird alles richtig durchgeführt und das Programm kann ohne Probleme gestartet wqerden.
 
-Der Testrun von CMAKE auf der Kommandozeile hat funktioniert wenn ich QT 6 benutzt habe
-welches nativ auf dem ARM64 Prozessor läuft
+Der Testrun von CMAKE auf der Kommandozeile hat funktioniert, wenn ich QT 6 benutzt habe,
+welches nativ auf dem ARM64 Prozessor läuft.
+
+--> Ich habe dafür ein paar kleine Änderungen vorgenommen. Zum Beispiel musste ich die CMAKE ändern, die ich zur Abgabe wieder auf QT 5 zurückgesetzt habe.
+(wenn man qt 6 benutzt muss
+"layout->setMargin(0);"
+in der ConsoleWindow.cpp zu
+"layout->setContentsMargins(0,0,0,0);"
+geändert werden)
 
 #############
 # Steuerung #
