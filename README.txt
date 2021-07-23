@@ -21,7 +21,7 @@ Das Programm kann gestartet werden. Bei mir war dies nur über das Terminal mög
 
 # Steuerung
 #Menü
-- Tasten zum Wählen des Levels: 1 - 3
+- Tasten zum Wählen des Levels: 1 - 4
 - Taste zum Verlassen des Spiel: e
 
 #Normal
