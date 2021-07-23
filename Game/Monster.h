@@ -1,7 +1,3 @@
-//
-// Created by Viktor Lehnhausen on 21.07.21.
-//
-
 #ifndef KLAUSUR_MONSTER_H
 #define KLAUSUR_MONSTER_H
 

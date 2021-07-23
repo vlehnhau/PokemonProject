@@ -1,7 +1,3 @@
-//
-// Created by Viktor Lehnhausen on 21.07.21.
-//
-
 #include "Monster.h"
 
 const std::string &Monster::getName() const {

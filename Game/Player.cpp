@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "iostream"
 
 //Es wird ein neuer Spieler erzeugt und seine Position wird abgespeichert
 Player::Player(int x, int y) {
