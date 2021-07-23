@@ -26,8 +26,8 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
             exit(0);
         }
     }
-    if (gameStarted && int(std::chrono::duration_cast<std::chrono::microseconds>(
-            std::chrono::system_clock::now() - startRoundTime).count()) > 50000) { //Hier wird so lange gewartet bis der spieler sich wieder bewegen kann
+    if (gameStarted && int(std::chrono::duration_cast<std::chrono::milliseconds>(
+            std::chrono::system_clock::now() - startRoundTime).count()) > 200) { //Hier wird so lange gewartet bis der spieler sich wieder bewegen kann
         //Hier wird das Board aktualisiert
         this->clear();
         this->printBoard();
