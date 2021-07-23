@@ -17,6 +17,10 @@ Das Programm kann gestartet werden, aber bei mir war dies nur über das terminal
 #############
 # Steuerung #
 #############
+#Menü
+Tasten zum Wählen des Levels: 1 - 3
+Taste zum verlassen des Spiel: e
+
 #Normal
 Steuerung des Characters: Pfeiltasten
 Monster wechseln: Zahlen für einstprechendes Monster
@@ -32,6 +36,9 @@ Flucht: 3
 Fangen: 1
 Flucht: 2
 
+#End Screen
+zurück zum Menü: a
+
 ############
 # Unicodes #
 ############
@@ -44,7 +51,7 @@ MonsterGym/Muskelsymbol: QString::fromUtf8("\xF0\x9F\x92\xAA")
 Wand: QString("\u2591")
 Ausgang: QString("\u27A5")
 
-Bons(von mir selbst): QString("\u2B50")
+Bonus(von mir selbst): QString("\u2B50")
 
 ###########
 # Quellen #
@@ -54,6 +61,7 @@ Bons(von mir selbst): QString("\u2B50")
 - https://unicode-table.com/de/search/?q=stern -> unicode code für den bonus stern
 - https://www.cplusplus.com/reference/chrono/ -> Ich habe nachgeschaut wie ich die zeit richtig einbinden kann (Dokumentation)
 - https://stackoverflow.com/questions/39288595/why-not-just-use-random-device -> Warum man nicht nur random_device benutzen soll
+- https://docs.microsoft.com/de-de/cpp/cpp/program-termination?view=msvc-160 -> wie kann ich ein Programm beenden
 
 #######################
 # Zusatzinformationen #
@@ -70,8 +78,8 @@ dem Monster des Spielers den Schaden hinzufügen. Dies müsste man in der attack
 ##########
 # Extras #
 ##########
--Es können 5 verschiede monster auftauchen
--Man kann sein Monster im Kampf tranieren, dann werden 5 LP von der Maximalen LPs abgezogen und man bekommt 2 Ap mehr
+- Es können 5 verschiede monster auftauchen
+- Man kann sein Monster im Kampf tranieren, dann werden 5 LP von der Maximalen LPs abgezogen und man bekommt 2 Ap mehr
 --> Begründung: Man traniert sein Monster während dem Kampf und dadurch wird es stärker,
                 aber da es sehr abgelenkt wird bekommt es einen bleibend schaden
 
@@ -82,6 +90,11 @@ dem Monster des Spielers den Schaden hinzufügen. Dies müsste man in der attack
                 - Einen Kampf gewinnen: +20 Punkte
                 - Sterben: -50 Punkte:
 
+-Menü:  - Man kann am Anfang eingeben welches Level man spielen will
+        - Man kann das Spiel im Menue beenden;
+        - Man kann wenn man auf dem end-screen ist (win oder lose) wieder zurück ins Menü und ein neues level Spielen
+        - Ich habe ein neues Level eingeführt in welchem sich alle Funktionen leich und schnell testen lassen
+        - Es würde sich leicht beliebig viele Maps einbauen lassen
 
 
 
