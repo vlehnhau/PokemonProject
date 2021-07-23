@@ -79,8 +79,8 @@ unnötig leichter gewesen, dass man diese wiederbeleben kann.
 3. Tanki | 50 LP | 3 AP
 4. SuperStark | 5 LP | 10 AP
 
---> Derzeit sind alle wahrscheinlichkeiten gleich hoch ... damit das spiel sinn macht müsste es zum beispiel extrem unwarscheinlich sein das Monster
-OverPower zu finden. Dies habe ich nicht gemacht damit man alle Monster bekommen kann und sie testen kann.
+--> Derzeit sind alle Wahrscheinlichkeiten gleich hoch ... damit das Spiel sinn macht müsste es zum Beispiel extrem unwarscheinlich sein das Monster
+OverPower zu finden. Dies habe ich nicht gemacht, damit man alle Monster bekommen kann und sie testen kann.
 
 
 - Man kann sein Monster im Kampf tranieren. Es werden 5 LP von der Maximalen LPs abgezogen und man bekommt 2 Ap mehr.
