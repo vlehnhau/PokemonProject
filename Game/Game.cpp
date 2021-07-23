@@ -65,14 +65,14 @@ const std::vector<std::vector<char>> &Game::getField() const {
 
 //Diese Methode bewegt den Spieler und wird aufgerufen wenn die entsprechenden Tasten gedrückt werden
 void Game::movePlayer(const std::string &moveTo) {
-    int x = this->getP()->getLocationX(); //allte Location wird abgespeichert
-    int y = this->getP()->getLocationY(); //allte Location wird abgespeichert
+    int x = this->getP()->getLocationX(); //alte Location wird abgespeichert
+    int y = this->getP()->getLocationY(); //alte Location wird abgespeichert
     if (moveTo == "up") {
         if (checkFree(this->p->getLocationX(), this->p->getLocationY() -
                                                1)) {    //Hier wird überprüft ob der Spieler das gewünschte Feld betreten kann
             this->p->setLocationY(
                     this->p->getLocationY() - 1);                //Es wird der neue Standpunkt von dem Spieler gesetzt
-            healingStartet = false;                                                     //Der Healing fortschrit wird zurück gesetzt sobald der Spieler sich bewegt
+            healingStartet = false;                                                     //Der Healing Fortschrit wird zurück gesetzt sobald der Spieler sich bewegt
         }
     } else if (moveTo == "down") {
         if (checkFree(this->p->getLocationX(), this->p->getLocationY() + 1)) {
@@ -92,7 +92,7 @@ void Game::movePlayer(const std::string &moveTo) {
     }
 
     if (field[this->p->getLocationY()][this->p->getLocationX()] ==
-        'T') {           //Wenn der Spieler auf einen Gegner trifft, wird die kampfmethode aufgerufen
+        'T') {           //Wenn der Spieler auf einen Gegner trifft, wird die Kampfmethode aufgerufen
         this->fight();
     }
 
@@ -103,12 +103,12 @@ void Game::movePlayer(const std::string &moveTo) {
     }
 
     if (field[this->p->getLocationY()][this->p->getLocationX()] ==
-        'P') {           //Wenn der Spieler auf ein Heilfeld trifft, wird die heilmethode aufgerufen
+        'P') {           //Wenn der Spieler auf ein Heilfeld trifft, wird die Heilmethode aufgerufen
         this->heal();
     }
 
     if (field[this->p->getLocationY()][this->p->getLocationX()] ==
-        '*') {           //Wenn der Spieler auf ein Bonusfeld;
+        '*') {           //Wenn der Spieler auf ein Bonusfeld kommt
         this->score = score + 20;
         field[this->p->getLocationY()][this->p->getLocationX()] = ' ';
     }
@@ -119,9 +119,9 @@ void Game::movePlayer(const std::string &moveTo) {
                                5);                                      //Wird eine Zufallszahl zwischen 1 und 5 ausgewählt (20%)
         if (rdmNumber == 5) {
             rdmNumber = rdmInt(1, 5);
-            this->monsterFound = true;                                              //Wird die monster fangen Phase eingeleitet
+            this->monsterFound = true;                                              //Wird die Monster fangen Phase eingeleitet
             if (rdmNumber == 1) {
-                this->newMonster = new Monster("SuperTaube", 3,10, 1);      //und eine neues Monster erzeugt und in der dafür vorgesehenen variable abgespeichert
+                this->newMonster = new Monster("SuperTaube", 3,10, 1);      //und eine neues Monster erzeugt und in der dafür vorgesehenen Variable abgespeichert
             } else if (rdmNumber == 2) {
                 this->newMonster = new Monster("Fisch", 1,1, 0);
             } else if (rdmNumber == 3) {
@@ -135,7 +135,7 @@ void Game::movePlayer(const std::string &moveTo) {
     }
 }
 
-bool Game::checkFree(int x, int y) { //Hier wird überprüft ob das feld betretbar ist
+bool Game::checkFree(int x, int y) { //Hier wird überprüft ob das Feld betretbar ist
     if (0 <= x && 79 >= x && 0 <= y && 29 >= y) {   //Das Feld darf nicht außerhalb von dem Spielfeld sein
         if (this->field[y][x] == '#') { //Wenn das Feld eine Bariere ist wird false zurückgegeben ansonsten true
             return false;
@@ -166,12 +166,12 @@ void Game::fight() {
     this->fighting = 1; //Die erste Kampfphase wird eingeleitet
 }
 
-//Hier wird überpfrüft ob der Spieler verloren hat oder ein monster von ihm gestorben ist
+//Hier wird überpfrüft ob der Spieler verloren hat oder ein Monster von ihm gestorben ist
 void Game::deadOrLose() {
     if (this->p->getM()->getLpNow() <=
-        0) { //Er kann nur verloren haben oder sein monster wechseln müssen wenn sein hauptmonster unter oder genau 0Lp hat
+        0) { //Er kann nur verloren haben oder sein Monster wechseln müssen wenn sein hauptmonster unter oder genau 0Lp hat
         this->p->getAllMonsters()->erase(this->p->getAllMonsters()->begin() +
-                                         this->getP()->getIndexOfMonster()); //Das Tote hauptmonster wird entfernt
+                                         this->getP()->getIndexOfMonster()); //Das Tote Hauptmonster wird entfernt
         if (this->p->getAllMonsters()->size() == 0) { //Wenn kein Monster mehr vorhanden ist -> hat der Spieler verloren
             this->lose = true;
             this->score = score - 50;
@@ -209,7 +209,7 @@ void Game::newMaxHealth() {
             p->getM()->setLp(p->getM()->getLp() + 5);
             this->field[this->p->getLocationY()][this->p->getLocationX()] = ' ';
         }
-    } else { //Wenn diese Methode das erstemal aufgerufen wird, wird die start zeit abgespeichert und sich gemerkt dass gestartet wurde
+    } else { //Wenn diese Methode das erstemal aufgerufen wird, wird die Startzeit abgespeichert und sich gemerkt dass gestartet wurde
         healingStartet = true;
         healingStart = std::chrono::system_clock::now();
     }
