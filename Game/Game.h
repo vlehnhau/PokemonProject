@@ -64,7 +64,7 @@ public:
     bool isWin() const;
     bool isMonsterFound() const;
     void setMonsterFound(bool monsterFound);
-    const Monster &getNewMonster() const;
+    Monster *getNewMonster();
     int getFighting() const;
     void setFighting(int fighting);
     Monster *getEnemyMonster() const;
@@ -72,6 +72,8 @@ public:
     void setFightHealingUsed(bool fightHealingUsed);
     int getScore() const;
     void setScore(int score);
+    void setNewMonster(Monster *newMonster);
+    void setEnemyMonster(Monster *enemyMonster);
 };
 
 #endif //KLAUSUR_GAME_H

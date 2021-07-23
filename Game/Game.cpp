@@ -217,8 +217,8 @@ bool Game::isMonsterFound() const {
     return monsterFound;
 }
 
-const Monster &Game::getNewMonster() const {
-    return *newMonster;
+Monster *Game::getNewMonster() {
+    return newMonster;
 }
 
 void Game::setMonsterFound(bool monsterFound) {
@@ -305,6 +305,8 @@ void Game::run() {
     if (rdmNumber <= 8) {
         this->setFighting(0);   //Die kampfphase ist beendet
         this->setFightHealingUsed(false);
+        delete this->enemyMonster;
+        this->enemyMonster = nullptr;
     } else {
         p->getM()->setLpNow(
                 p->getM()->getLpNow() - enemyMonster->getAp()); //Der Gegner kann in diesem Zug trd. angreifen
@@ -332,4 +334,12 @@ int Game::getScore() const {
 
 void Game::setScore(int score) {
     score = score;
+}
+
+void Game::setNewMonster(Monster *newMonster) {
+    Game::newMonster = newMonster;
+}
+
+void Game::setEnemyMonster(Monster *enemyMonster) {
+    Game::enemyMonster = enemyMonster;
 }

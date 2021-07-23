@@ -63,6 +63,8 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
                 this->game->setMonsterFound(false);
             } else if (this->getPressedKey() == '2') {
                 this->game->setMonsterFound(false);
+                delete this->game->getNewMonster();
+                this->game->setNewMonster(nullptr);
             }
         } else if (!this->game->isMonsterFound() && this->game->getFighting() != 0) {
             //fighting
@@ -114,6 +116,8 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
                 if (this->getPressedKey() == 'a') {
                     this->game->setFighting(0);
                     this->game->setFightHealingUsed(false);
+                    delete this->game->getEnemyMonster();
+                    this->game->setEnemyMonster(nullptr);
                 }
             }
         }
@@ -127,12 +131,12 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
         if (this->game->isMonsterFound()) {
             if (this->game->getP()->getAllMonsters()->size() < 6) {
                 this->clear();
-                this->writeString(0, 10, "Ein Monster (" + this->game->getNewMonster().getName() +
+                this->writeString(0, 10, "Ein Monster (" + this->game->getNewMonster()->getName() +
                                          ") erscheint. Was moechtest du tun?");
                 this->writeString(0, 11, "1: Fangen | 2: Flucht");
             } else {
                 this->clear();
-                this->writeString(0, 10, "Ein Monster (" + this->game->getNewMonster().getName() +
+                this->writeString(0, 10, "Ein Monster (" + this->game->getNewMonster()->getName() +
                                          ") erscheint, aber du hast leider keinen Platz mehr");
                 this->writeString(0, 11, "1: ------ | 2: Flucht");
             }
@@ -160,6 +164,8 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
             this->writeString(0, 14, "Zurueck zum Menue?: a");
             if (this->getPressedKey() == 'a') {
                 this->gameStarted = false;
+                delete game;
+                game = nullptr;
             }
         } else if (this->game->isWin()) {
             this->clear();
@@ -168,6 +174,8 @@ void Gui::onRefresh() { // Diese Methode ist dafür zuständig das board anzuzie
             this->writeString(0, 14, "Zurueck zum Menue?: a");
             if (this->getPressedKey() == 'a') {
                 this->gameStarted = false;
+                delete game;
+                game = nullptr;
             }
         }
         startRoundTime = std::chrono::system_clock::now();//Hier wird eine neue runden Zeit begonnen sodass oben passend gewartet werden kann
