@@ -2,13 +2,12 @@
 
 //Zufallszahl
 int rdmInt(int min, int max) {
-    static std::random_device rdmDevice;
-    static std::mt19937 randomizer(rdmDevice());
+    std::random_device rdmDevice;
+    std::mt19937 randomizer(rdmDevice());
 
     std::uniform_int_distribution<int> dist(min, max);
 
-    int rdmInt = dist(randomizer);
-    return rdmInt;
+    return dist(randomizer);
 }
 
 //konstruktor
@@ -193,8 +192,8 @@ void Game::heal() {
 void Game::newMaxHealth() {
     //Wenn der Spieler auf einem Y Feld ist wird diese methode immerwieder aufgerufen
     if (healingStartet) { //Wenn das healing bereitsgestartet wurde wird überprüft ob seid dem start schon 5 sekunden vergangen sind wenn ja werden die maximalen lp um 5 erhöt und das Feld entfernt
-        if (int(std::chrono::duration_cast<std::chrono::microseconds>(
-                std::chrono::system_clock::now() - healingStart).count()) > 5000000) {
+        if (int(std::chrono::duration_cast<std::chrono::seconds>(
+                std::chrono::system_clock::now() - healingStart).count()) > 5) {
             p->getM()->setLp(p->getM()->getLp() + 5);
             this->field[this->p->getLocationY()][this->p->getLocationX()] = ' ';
         }

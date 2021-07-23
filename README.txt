@@ -56,10 +56,11 @@ Bons(von mir selbst): QString("\u2B50")
 ###########
 # Quellen #
 ###########
-- https://luna.informatik.uni-mainz.de/eis21/aufgaben/blatt10/threads-anlage.md
-- http://www.cplusplus.com/forum/general/3082/
-- https://im-coder.com/zeile-fuer-zeile-lesen-in-c-und-c.html
-- https://unicode-table.com/de/search/?q=stern
+- https://luna.informatik.uni-mainz.de/eis21/lehreinheiten.md -> ich habe die Aufgabenstellung der Übungsblätter überflogen um auf ideen zu kommen
+- https://im-coder.com/zeile-fuer-zeile-lesen-in-c-und-c.html -> damit ich eine ganze zeile lesen kann
+- https://unicode-table.com/de/search/?q=stern -> unicode code für den bonus stern
+- https://www.cplusplus.com/reference/chrono/ -> Ich habe nachgeschaut wie ich die zeit richtig einbinden kann (Dokumentation)
+- https://stackoverflow.com/questions/39288595/why-not-just-use-random-device -> Warum man nicht nur random_device benutzen soll
 
 #######################
 # Zusatzinformationen #
