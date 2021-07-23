@@ -153,7 +153,6 @@ Player *Game::getP() const {
 //Die Kampfmethode
 void Game::fight() {
     int rdmNumber = rdmInt(1, 3); //Es wird eine Zufallszahl bestimmt um zu entscheiden welches monster der Gegner hat
-    rdmNumber = 1;
 
     if (rdmNumber == 1) {
         this->enemyMonster = new Monster("Donnerratte", 5, 16, 0);
