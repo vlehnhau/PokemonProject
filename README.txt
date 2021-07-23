@@ -1,6 +1,6 @@
-###################
-# Spezifikationen #
-###################
+####################################################
+# Spezifikationen und wie man das Programm ausführt#
+####################################################
 - Geschrieben mit XCODE / Clang (AppleClang 12.0.5.12050022) / Qt5.12.11
 - Prozessor Apple M1 Arm64 -> QT mit Rosetta, Rest nativ
 
@@ -18,6 +18,8 @@ welches nativ auf dem ARM64 Prozessor läuft.
 in der ConsoleWindow.cpp zu
 "layout->setContentsMargins(0,0,0,0);"
 geändert werden)
+
+--> Als es mit QT 6 funktioniert hat musste ich das Programm allerdings über das terminal starten, da ansonsten nicht die map geladen wurde
 
 #############
 # Steuerung #
