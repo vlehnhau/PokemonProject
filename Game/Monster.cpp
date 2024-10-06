@@ -1,35 +1,43 @@
 #include "Monster.h"
 
-const std::string &Monster::getName() const {
+const std::string &Monster::getName() const
+{
     return name;
 }
 
-int Monster::getAp() const {
+int Monster::getAp() const
+{
     return ap;
 }
 
-int Monster::getLp() const {
+int Monster::getLp() const
+{
     return lp;
 }
 
-int Monster::getLpNow() const {
+int Monster::getLpNow() const
+{
     return lp_now;
 }
 
-void Monster::setAp(int ap) {
+void Monster::setAp(int ap)
+{
     Monster::ap = ap;
 }
 
-void Monster::setLp(int lp) {
+void Monster::setLp(int lp)
+{
     Monster::lp = lp;
 }
 
-void Monster::setLpNow(int lpNow) {
+void Monster::setLpNow(int lpNow)
+{
     lp_now = lpNow;
 }
 
-//Hier wird ein Monster erstellt welches von dem anfangsmonster abweicht und alle werte werden gesetzt
-Monster::Monster(std::string name, int ap, int lp, int special) {
+// Hier wird ein Monster erstellt, welches von dem Anfangsmonster abweicht und alle Werte werden gesetzt.
+Monster::Monster(std::string name, int ap, int lp, int special)
+{
     this->name = name;
     this->ap = ap;
     this->lp = lp;
@@ -37,10 +45,12 @@ Monster::Monster(std::string name, int ap, int lp, int special) {
     this->special = special;
 }
 
-int Monster::getSpecial() const {
+int Monster::getSpecial() const
+{
     return special;
 }
 
-void Monster::setSpecial(int special) {
+void Monster::setSpecial(int special)
+{
     Monster::special = special;
 }

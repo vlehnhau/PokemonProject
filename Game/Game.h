@@ -11,17 +11,18 @@
 
 int rdmInt(int min, int max);
 
-class Game {
+class Game
+{
 private:
-    std::vector<std::vector<char>> field; //Das Spielfeld
-    Player *p; //Der Spieler
+    std::vector<std::vector<char>> field; // Das Spielfeld
+    Player *p;                            // Der Spieler
 
     int score = 0;
 
     bool lose = false;
     bool win = false;
 
-    bool healingStartet = false;
+    bool healingStarted = false;
     bool monsterFound = false;
     bool fightHealingUsed = false;
 
@@ -44,12 +45,12 @@ private:
     void deadOrLose();
 
 public:
-    //konstruktor destruktor
+    // konstruktor destruktor
     Game(int lvl);
     ~Game() = default;
 
     void attack();
-    void movePlayer(const std::string& moveTo);
+    void movePlayer(const std::string &moveTo);
     void newMaxHealth();
     void addMonster();
     void selectNewMonster(int index);
@@ -58,7 +59,7 @@ public:
     void train();
     void specialAttack(int index);
 
-    //Getter/Setter
+    // Getter/Setter
     const std::vector<std::vector<char>> &getField() const;
     Player *getP() const;
     bool isLose() const;
@@ -77,4 +78,4 @@ public:
     void setEnemyMonster(Monster *enemyMonster);
 };
 
-#endif //KLAUSUR_GAME_H
+#endif // KLAUSUR_GAME_H

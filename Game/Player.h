@@ -4,13 +4,14 @@
 #include <vector>
 #include "Monster.h"
 
-class Player {
+class Player
+{
 public:
-    //konstruktor destruktor
+    // Konstruktor Destruktor
     Player(int x, int y);
     ~Player() = default;
 
-    //Getter/Setter
+    // Getter/Setter
     int getLocationX() const;
     int getLocationY() const;
     Monster *getM() const;
@@ -30,5 +31,4 @@ private:
     Monster *m;
 };
 
-
-#endif //KLAUSUR_PLAYER_H
+#endif // KLAUSUR_PLAYER_H

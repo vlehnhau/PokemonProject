@@ -3,7 +3,8 @@
 
 #include <string>
 
-class Monster {
+class Monster
+{
 private:
     std::string name = "FeuerEchse";
     int ap = 5;
@@ -12,17 +13,17 @@ private:
     int special = 0;
     /* 0 -> no special
      * 1 -> man kann zu 100% Fliehen
-     * 2 -> man zeiht dem gegner 2 ap ab (minimum ist 1 ap)
-     * 3 -> man klaut dem Gegnerischen monster 2 LP und bekoomst sie selbst
+     * 2 -> man zieht dem Gegner 2 AP ab (Minimum ist 1 ap)
+     * 3 -> man klaut dem gegnerischen monster 2 LP und bekommt sie selbst
      * */
 
 public:
-    //konstruktor destruktor
+    // Konstruktor Destruktor
     Monster() = default;
     Monster(std::string name, int ap, int lp, int special);
     ~Monster() = default;
 
-    //Getter/Setter
+    // Getter/Setter
     const std::string &getName() const;
     int getAp() const;
     int getLp() const;
@@ -34,5 +35,4 @@ public:
     void setSpecial(int special);
 };
 
-
-#endif //KLAUSUR_MONSTER_H
+#endif // KLAUSUR_MONSTER_H
