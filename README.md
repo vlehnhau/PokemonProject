@@ -1,124 +1,128 @@
-# Prüfung: „Einführung in die Softwareentwicklung“
-## Instruktionen zum Bauen des Projektes
+# Exam: "Introduction to Software Development"
+## Instructions for Building the Project
 
+### Specifications and How to Run the Program
+- **Written using:** XCODE / Clang (AppleClang 12.0.5.12050022) / Qt5.12.11
+- **Processor:** Apple M1 Arm64 -> QT with Rosetta, everything else native
 
-# Spezifikationen und wie man das Programm ausführt
-- Geschrieben mit XCODE / Clang (AppleClang 12.0.5.12050022) / Qt5.12.11
-- Prozessor Apple M1 Arm64 -> QT mit Rosetta, Rest nativ
+### How to Get the Project Running
+1. Run the following command:
+    ```sh
+    cmake CMakeLists.txt -B "Your desired output directory" -DCMAKE_OSX_ARCHITECTURES=x86_64
+    ```
+   > **Note:** `-DCMAKE_OSX_ARCHITECTURES=x86_64` is only needed when building on an ARM64 architecture. Normally, this flag can be omitted.
 
-#Wie bekomme ich das Projekt zum laufen:
-cmake CMakeLists.txt -B "Hier das Verzeichnes wo es hin soll" -DCMAKE_OSX_ARCHITECTURES=x86_64
---> -DCMAKE_OSX_ARCHITECTURES=x86_64 wird nur beim build auf einer ARM64 Architektur benötigt. Normalerweise kann dieser Befehl weggelassen werden.
+2. Then, execute:
+    ```sh
+    make (in the specified directory)
+    ```
 
-make (im besagten Verzeichnis ausführen)
+3. Copy the contents of the `copyme` folder into the same directory.
 
-Jetzt muss der Inhalt vom copyme-Ordner auch ins selbe Verzeichnis.
+4. The program can be started. In my case, it only worked through the terminal because otherwise the maps from the `copyme` folder would not function correctly.
 
-Das Programm kann gestartet werden. Bei mir war dies nur über das Terminal möglich, da ansonsten die Maps aus dem Copyme-Ordner nicht funktioniert haben.
+## Notes to the Reviewers
 
+### Controls 
+#### Menu
+- **Keys to select level:** 1 - 4
+- **Key to exit the game:** e
 
-## Notizen an die Korrigierenden
+#### Regular Gameplay
+- **Character movement:** Arrow keys
+- **Switch monster:** Numbers for a specific monster
 
-# Steuerung 
-#Menü
-- Tasten zum Wählen des Levels: 1 - 4
-- Taste zum Verlassen des Spiel: e
+#### Battle Mode
+- **Switch monster:** p
+- **Continue dialogue:** a
+- **Attack:** 1
+- **Heal:** 2
+- **Flee:** 3
+- **Special attack:** s
 
-#Normal
-- Steuerung des Characters: Pfeiltasten
-- Monster wechseln: Zahlen für ein entsprechendes Monster
+#### Monster Catching
+- **Catch:** 1
+- **Flee:** 2
 
-#Kampf
-- Monster wechseln: p
-- Dialog weiter: a
-- Angriff: 1
-- Heilen: 2
-- Flucht: 3
-- Special Angriif: s
+#### End Screen
+- **Return to menu:** a
 
-#Monsterfangen
-- Fangen: 1
-- Flucht: 2
+### Unicode Symbols
+(From the sample solution)
 
-#End Screen
-- zurück zum Menü: a
+- **Protagonist:** `QString::fromUtf8("\xF0\x9F\x98\x83")`
+- **Forest/Wild Monster Field:** `QString::fromUtf8("\xF0\x9F\x8C\xB2")`
+- **Opponent:** `QString::fromUtf8("\xF0\x9F\x98\x92")`
+- **Monster Center/Healing:** `QString::fromUtf8("\xF0\x9F\xA4\x8E")`
+- **Monster Gym/Muscle Symbol:** `QString::fromUtf8("\xF0\x9F\x92\xAA")`
+- **Wall:** `QString("\u2591")`
+- **Exit:** `QString("\u27A5")`
+- **Bonus (created by me):** `QString("\u2B50")`
 
-# Unicodes 
-(Aus der Musterlösung)
+### Additional Information
 
-- Protagonist*in: QString::fromUtf8("\xF0\x9F\x98\x83")
-- Wald/Wildes-Monsterfeld: QString::fromUtf8("\xF0\x9F\x8C\xB2")
-- Gegener*in: QString::fromUtf8("\xF0\x9F\x98\x92")
-- MonsterCenter/Heilen: QString::fromUtf8("\xF0\x9F\xA4\x8E")
-- MonsterGym/Muskelsymbol: QString::fromUtf8("\xF0\x9F\x92\xAA")
-- Wand: QString("\u2591")
-- Ausgang: QString("\u27A5")
+- At the time of submission, the program runs without errors on the system described above.
 
-- Bonus(von mir selbst): QString("\u2B50")
+- When a monster is defeated in the game, it dies and cannot be revived. However, this frees up a slot in the monster inventory, allowing the player to catch a new one.
+To prove that this was an intentional design decision, I will briefly explain how it could have been done differently. Instead of removing the monster from the vector, we could have kept the monster in the vector and added a variable to indicate whether the monster is alive (a `bool`). This would have allowed us to show that the monster is not available in the monster list and to disable the respective button. In the heal method, we could reset all monsters to alive.
+I found it more reasonable to generate new monsters in each level, treating each level as a fresh start, which made reviving defeated monsters unnecessarily easy.
 
+### Extras 
+- There are 5 different possible monsters that can appear:
 
-# Zusatzinformationen
+1. **Fish** | 1 HP | 1 AP
+2. **OverPower** | 50 HP | 50 AP
+3. **Tanki** | 50 HP | 3 AP
+4. **SuperStrong** | 5 HP | 10 AP
 
+> Currently, all probabilities are equal. For the game to make more sense, it should be extremely unlikely to find the OverPower monster. However, I left the probabilities equal so that players could find and test all monsters.
 
--Zum Zeitpunkt der Abgabe läuft das Programm fehlerfrei auf dem oben beschriebenen System.
+- You can train your monster during a battle. This reduces the maximum HP by 5 and increases AP by 2.
+> **Reason:** Training your monster during a fight makes it stronger but also distracts it, causing permanent damage.
 
--Wenn ein Monster im Spiel besiegt wird, stirbt es und es kann auch nicht Wiederbelebt werden. Dafür wird aber ein neuer Platz
-im Monster-Inventar frei und der Spiel kann wieder ein neues Monster fangen.
-Um zu beweisen, dass dies eine bewusste Entscheidung war, erkläre ich kurz, wie man dies hätte anders machen können. Anstatt das Monster
-aus dem vector zu entfernen, hätte man das Monster dort drinnen lassen können und eine Variable dem Monster hinzufügen können, die
-angibt, ob das Monster lebt (bool). So hätte man in der Ausgabe der Monster auch anzeigen können, dass das Monster nicht zu Verfügung steht
-und auch den dementsprechenden Knopf deaktivieren können. In der Heil-Methode müsste man alle Monster wieder auf alive setzen.
-Ich habe es für sinnvoller gehalten, die Monster in jedem Level neu zu erzeugen, sodass jedes Level ein Neustart ist und dann wäre es nur
-unnötig leichter gewesen, dass man diese wiederbeleben kann.
+### Score System
+- Each monster that dies: -5 points
+- Each monster caught: +5 points
+- Reaching the goal: +50 points
+- Bonus points: +20 points (I added a new block that appears 3 times on the advanced map)
+- Winning a battle: +20 points
+- Dying: -50 points
 
-# Extras 
-- Es können 5 verschiede Monster auftauchen.
+### Menu
+- At the start, you can choose which level to play.
+- You can quit the game from the menu.
+- On the end-screen (win or lose), you can return to the menu and start a new level.
+- I added a new level to easily and quickly test all functions.
+- An additional boss level was also added. The levels demonstrate that new levels can be integrated easily without many changes.
+- It would be simple to add more maps.
 
-1. Fisch | 1 LP | 1 AP
-2. OverPower | 50 LP | 50 AP
-3. Tanki | 50 LP | 3 AP
-4. SuperStark | 5 LP | 10 AP
+### Special Attacks
+- **SuperPigeon** can flee from any battle, with a success rate of 100% instead of 80%.
+- **OverPower** can weaken the opponent by reducing their AP by 2 (the opponent's AP cannot fall below 1).
+- **SuperStrong** can steal 2 HP from the opponent and add it to its own HP. However, its maximum HP cannot be exceeded, and the opponent cannot be killed by this attack (HP cannot drop below 1).
 
---> Derzeit sind alle Wahrscheinlichkeiten gleich hoch ... damit das Spiel sinn macht müsste es zum Beispiel extrem unwarscheinlich sein das Monster
-OverPower zu finden. Dies habe ich nicht gemacht, damit man alle Monster bekommen kann und sie testen kann.
+> After each special attack, the opponent still gets a chance to attack.
 
+### Architecture
+In the following, I will describe the architecture of my program.
 
-- Man kann sein Monster im Kampf tranieren. Es werden 5 LP von der Maximalen LPs abgezogen und man bekommt 2 Ap mehr.
---> Begründung: 
-Man traniert sein Monster während des Kampfes. Dadurch wird es stärker,
-gleichzeitig aber auch abgelenkt, wodurch es einen bleibenden Schaden bekommt.
+#### Responsibilities of the Gui Class
+The Gui class handles everything related to display and input. I chose this approach to keep the game logic as separated from the user interface as possible. In the `onRefresh` method, it constantly checks which phase of the game the player is in at any given time (one of the battle phases, normal state, whether a monster has been found, or if the game has been won or lost, etc.). The display and the available key presses are determined based on this status. Additionally, a specific amount of time is always waited to prevent the player from moving too quickly. This wait time can be adjusted as needed.
 
--Scoresystem:
- 
- - Jedes Monster das stirbt: -5 Punkte
- - Jedes Monster welches aufgesammelt wird: +5 Punkte
- - Das Ziel erreichen: +50 Punkte
- - Bonus Punkte: +20 Punkte -> ich habe einen neuen Block eingeführt, welcher auf der advancedmap 3x vorhanden ist.
- - Einen Kampf gewinnen: +20 Punkte
- - Sterben: -50 Punkte:
+The Gui class has a game object that manages the game logic. When a key is pressed, the corresponding method in the game logic is invoked. For example, when the "up arrow" key is pressed in normal mode, the `movePlayer` method is called with the parameter "up" through the game object. In certain cases, a new phase must also be initiated directly. For instance, during dialogue in a battle, only a key press is awaited, and no game logic is processed.
 
--Menü:
+The game object is created whenever a level is selected, and the constructor of the game receives the selected level as a parameter.
 
-- Man kann am Anfang eingeben, welches Level man spielen will.
-- Man kann das Spiel im Menü beenden.
-- Man kann, wenn man auf dem end-screen ist (win oder lose), wieder zurück ins Menü und ein neues level Spielen.
-- Ich habe ein neues Level eingeführt, in welchem sich alle Funktionen leicht und schnell testen lassen.
-- Ein weiteres Boss-Level ist auch dazu gekommen.--> Die Level sollen zeigen dass sich ohne viel auf Wand neue Level mit den gegebenen möglichkeiten einbinden lasse
-- Es würden sich leicht beliebig viele Maps einbauen lassen.
+#### Responsibilities of the Game Class
+This class takes care of all the "background logic." The constructor also reads the corresponding map. The `movePlayer` method is invoked whenever the player needs to move in a specific direction. This direction is passed as a parameter to the method when called. The method checks what type of field the player is currently on and calls the appropriate methods accordingly. These methods can change phases, heal the monster, etc. When the player encounters an opponent, the `fight` method is called, which executes all battle-related game logic.
 
--Specialattacke:
+Furthermore, the Game class contains all other essential objects and variables, such as the player object. This object holds the player's monsters and the active monster, which is continuously displayed by the Gui.
 
-- SuperTaube kann jetzt aus jedem Kampf fliehen und die erfolgswahrscheinlichkeit liegt bei ihr nicht bei 80 sondern bei 100%
-- OverPower kann jetzt den Gegner schwächen und zieht dem Gegner 2 AP ab (Der Gegner kann nicht unter 1 AP fallen)
-- SuperStark kann jetzt dem Gegner 2 LP klauen und bekommt Sie selbst -> seine max LP können nicht übertroffen werden und der Gegner kann mit dieser Attacke nicht getötet werden (nicht unter 1 LP)
+## Sources
+- [Line-by-Line Reading in C and C++](https://im-coder.com/zeile-fuer-zeile-lesen-in-c-und-c.html) -> How to read a complete line in C++
+- [Unicode Table for Bonus Star](https://unicode-table.com/de/search/?q=stern) -> Unicode code for the bonus star
+- [C++ Documentation on Time Integration](https://www.cplusplus.com/reference/chrono/) -> How to properly integrate time (documentation)
+- [Why Not Just Use random_device](https://stackoverflow.com/questions/39288595/why-not-just-use-random-device) -> Why you shouldn't just use `random_device`
+- [Program Termination in C++](https://docs.microsoft.com/de-de/cpp/cpp/program-termination?view=msvc-160) -> How to terminate a program
 
-- nach jeder Special attacke greift immernoch der Gegner an
-
-## Quellen
-- https://im-coder.com/zeile-fuer-zeile-lesen-in-c-und-c.html -> damit ich eine ganze zeile lesen kann
-- https://unicode-table.com/de/search/?q=stern -> unicode code für den bonus stern
-- https://www.cplusplus.com/reference/chrono/ -> Ich habe nachgeschaut wie ich die zeit richtig einbinden kann (Dokumentation)
-- https://stackoverflow.com/questions/39288595/why-not-just-use-random-device -> Warum man nicht nur random_device benutzen soll
-- https://docs.microsoft.com/de-de/cpp/cpp/program-termination?view=msvc-160 -> wie kann ich ein Programm beenden
-
--> alle verwendeten Quelle sind Faktenwissen
+> All sources used are factual references.
